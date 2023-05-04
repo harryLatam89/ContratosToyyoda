@@ -1,4 +1,13 @@
+using ContratosToyyoda.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    _ = options.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnectionString"));
+
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
