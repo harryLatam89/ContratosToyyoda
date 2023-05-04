@@ -2,10 +2,10 @@
 
 namespace ContratosToyyoda.Models
 {
-    public class Usario
+    public class Usuario
     {
         [Key]
-        public int idUsuario { get; set; }
+        public int id { get; set; }
 
         public string nombreUsuario { get; set;}
 
@@ -14,5 +14,9 @@ namespace ContratosToyyoda.Models
         public string apellido { get; set; }
 
         public string contrasena { get; set; }
+
+        //Relaciones de modelos
+        public List<Contrato> contratos { get; set; }   
+
     }
 }

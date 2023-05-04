@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ContratosToyyoda.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContratosToyyoda.Data
 
@@ -9,5 +10,13 @@ namespace ContratosToyyoda.Data
         {
             
         }
+
+      
+
+        public DbSet<Contrato> contratos { get; set; }
+        public DbSet<Pais> paises { get; set; }
+  
+        public DbSet<Usuario> usuarios { get; set; }
+
     }
 }
