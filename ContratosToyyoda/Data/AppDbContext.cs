@@ -1,5 +1,6 @@
 ﻿using ContratosToyyoda.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection.Emit;
 
 namespace ContratosToyyoda.Data
 
@@ -8,15 +9,21 @@ namespace ContratosToyyoda.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-            
+
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+               {
+            base.OnModelCreating(modelBuilder);
+        }
+            
+    
 
       
 
-        public DbSet<Contrato> contratos { get; set; }
-        public DbSet<Pais> paises { get; set; }
+        public DbSet<Contrato> Contratos { get; set; }
+        public DbSet<Pais> Paises { get; set; }
   
-        public DbSet<Usuario> usuarios { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
 
     }
 }

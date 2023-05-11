@@ -1,16 +1,18 @@
 using ContratosToyyoda.Data;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
-    _ = options.UseSqlServer(builder.Configuration.GetConnectionString("DefultConnectionString"));
+    _ = options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectionString"));
 
 });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 
 var app = builder.Build();
 
@@ -33,4 +35,6 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
+
+AppDbInitializer.Seed(app);
 app.Run();
