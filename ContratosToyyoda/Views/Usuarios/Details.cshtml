@@ -1,0 +1,39 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Detalles de un usuario";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Detalles de @Model.nombre</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                    <div class="form-group">
+                        <label asp-for="nombre" class="control-label"></label>
+                        <input asp-for="nombre" class="form-control" readonly />
+                        <span asp-validation-for="nombre" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="apellido" class="control-label"></label>
+                    <input asp-for="apellido" class="form-control" readonly />
+                    <span asp-validation-for="apellido" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                    <label asp-for="nombreUsuario" class="control-label"></label>
+                    <input asp-for="nombreUsuario" class="form-control" readonly />
+                    <span asp-validation-for="nombreUsuario" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">                   
+
+                            <a class="btn btn-outline-success float-right" asp-action="Edit" asp-route-id="@Model.id">Edit</a>
+                        
+                            <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>

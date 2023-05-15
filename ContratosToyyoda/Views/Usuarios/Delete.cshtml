@@ -1,0 +1,48 @@
+﻿@model Usuario
+
+@{
+    ViewData["Title"] = "Borrar usuario";
+}
+
+<div class="row text">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h1>Confirmacion de borrar para @Model.nombre</h1>
+        </p>
+        <div class="row">
+            <div class="col-md-8 offset-2">
+              
+                <div class="form-group">
+                    <label asp-for="nombre" class="control-label"></label>
+                    <input asp-for="nombre" class="form-control" readonly />
+                    <span asp-validation-for="nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="apellido" class="control-label"></label>
+                    <input asp-for="apellido" class="form-control" readonly />
+                    <span asp-validation-for="apellido" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="nombreUsuario" class="control-label"></label>
+                    <input asp-for="nombreUsuario" class="form-control" readonly />
+                    <span asp-validation-for="nombreUsuario" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="contrasena" class="control-label"></label>
+                    <input asp-for="contrasena" class="form-control" readonly />
+                    <span asp-validation-for="contrasena" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="id" />
+                        <input type="submit" value="Confirm" class="btn btn-danger float-right" />
+                    </form>
+                    <a class="btn btn-outline-secondary" asp-action="Index">Show All</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
