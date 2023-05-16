@@ -18,6 +18,7 @@ builder.Services.AddControllersWithViews();
 //services configuration
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IPaisesService, PaisesService>();
+builder.Services.AddScoped<IContratosService, ContratosService>();
 
 var app = builder.Build();
 

@@ -7,7 +7,7 @@ namespace ContratosToyyoda.Models
     public class Usuario:IEntityBase
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "USUARIO")]
         [Required(ErrorMessage ="nombre de usuario es obligatorio")]

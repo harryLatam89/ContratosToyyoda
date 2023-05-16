@@ -53,7 +53,7 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("id,pais,region,direccion,logoUrl")] Pais dato)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,pais,region,direccion,logoUrl")] Pais dato)
         {
             if (!ModelState.IsValid) return View(dato);
 

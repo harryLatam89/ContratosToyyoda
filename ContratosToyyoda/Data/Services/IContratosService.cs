@@ -1,6 +1,18 @@
-﻿namespace ContratosToyyoda.Data.Services
+﻿using ContratosToyyoda.Data.Base;
+using ContratosToyyoda.Data.ViewModels;
+using ContratosToyyoda.Models;
+
+namespace ContratosToyyoda.Data.Services
 {
-    public interface IContratosService
+    public interface IContratosService:IEntityBaseRepository<Contrato>
     {
+        Task<Contrato> GetContratoByIdAsync(int id);
+
+        Task<NuevoContratoMenusVM> GetNuevoMenusValores();
+
+        Task AddNuevoContratoAsync(NuevoContratoVM dato);
+
+        
+        Task UpdateContratoAsync(NuevoContratoVM dato);
     }
 }

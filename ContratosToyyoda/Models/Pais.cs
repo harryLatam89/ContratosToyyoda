@@ -6,7 +6,7 @@ namespace ContratosToyyoda.Models
     public class Pais: IEntityBase
     {
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "PAIS")]
         [Required(ErrorMessage = "nombre de pais es obligatorio")]

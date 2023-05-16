@@ -74,7 +74,7 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("id,nombre,apellido,nombreUsuario,contrasena")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,apellido,nombreUsuario,contrasena")] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {

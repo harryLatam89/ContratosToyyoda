@@ -5,44 +5,38 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ContratosToyyoda.Models
 {
-    public class Contrato:IEntityBase
-    {
-        [Key]
-      
-        public int Id  { get; set; }
+    public class NuevoContratoVM
+    { 
+        public int id { get; set; }
 
+        [Required(ErrorMessage ="nombre es requerido")]
         [Display(Name = "NOMBRE")]
         public string nombre { get; set;}
-
+        [Required(ErrorMessage = "apellido es requerido")]
         [Display(Name = "APELLIDO")]
         public string apellido { get; set; }
-
+        [Required(ErrorMessage = "sueldo es requerido")]
         [Display(Name = "SUELDO")]
         public double sueldo { get; set; }
-
+        [Required(ErrorMessage = "tipo de contrato es requerido")]
         [Display(Name = "TIPO CONTRATO")]
         public TipoContrato tipoContrato { get; set;}
+        [Required(ErrorMessage = "fecha de ingreso es requerido")]
 
         [Display(Name = "FECHA INGRESO")]
         public DateTime fechaIngreso { get; set; }
+        [Required(ErrorMessage = "fecha de emision es requerido")]
 
         [Display(Name = "FECHA EMISION")]
         public DateTime fechaEmision { get; set; }
-
-        //relaciones 
-
-        // con user
+        [Required(ErrorMessage = "este campo es requerido")]
         [Display(Name = "CREADO POR")]
         public int idUser { get; set; }
-        [ForeignKey("idUser")]
 
-        public Usuario usuario { get; set; }
-
-        // compresa 
+        [Required(ErrorMessage = "pais es requerido")]
         [Display(Name = "PAIS SEDE")]
         public int idPais { get; set; }
-        [ForeignKey("idPais")]
-        public Pais pais { get; set; }
+       
     }
     
 }
