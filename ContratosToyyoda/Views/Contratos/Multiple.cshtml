@@ -1,0 +1,57 @@
+﻿@model IEnumerable<NuevoContratoVM>
+@using ContratosToyyoda.Data;
+
+
+@{
+    ViewData["Title"] = "Crear Multiples Contratos";
+
+}
+
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="cargarAchivo">
+
+
+
+                <form asp-action="Multiple" enctype="multipart/form-data" method="post">
+                            <div class="form-group">
+                                <label for="fileInput">Seleccionar archivo CSV:</label>
+                                <input type="file" id="fileInput" name="fileInput" class="form-control-file" accept=".csv">
+                            </div>
+                            <input type="submit" class="btn btn-primary">Cargar archivo</input>
+                        </form>
+
+
+
+
+
+
+
+        </div>
+
+
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+
+                    <th>@Html.DisplayNameFor(model => model.nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.apellido)</th>
+                    <th>@Html.DisplayNameFor(model => model.sueldo)</th>
+                    <th>@Html.DisplayNameFor(model => model.tipoContrato)</th>
+                    <th>@Html.DisplayNameFor(model => model.fechaIngreso)</th>
+                    <th>@Html.DisplayNameFor(model => model.fechaEmision)</th>
+                    <th>@Html.DisplayNameFor(model => model.idUser)</th>
+                    <th>@Html.DisplayNameFor(model => model.idPais)</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+
+        </table>
+
+
+
+    </div>
+</div>
