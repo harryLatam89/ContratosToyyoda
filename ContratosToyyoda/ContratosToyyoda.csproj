@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aspose.Words" Version="23.5.0" />
+    <PackageReference Include="DocX" Version="2.4.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.5">
@@ -16,6 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="wwwroot\Contratos\" />
+    <Folder Include="wwwroot\Plantilla\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

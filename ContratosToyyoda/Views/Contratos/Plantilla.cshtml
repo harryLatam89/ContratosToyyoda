@@ -1,0 +1,36 @@
+﻿@using ContratosToyyoda.Data.ViewModels
+@model PlantillaViewModel
+
+
+@{
+    ViewData["Title"] = "Crear Multiples Contratos";
+
+}
+
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="cargarAchivo">
+
+             <h1>seleccionar plantilla en word </h1>
+                <form asp-action="Plantilla" enctype="multipart/form-data" method="post">
+                            <div class="form-group">
+                    <label  for="fileInput">Seleccionar archivo:</label>
+                    <input  type="file" id="fileInput" name="fileInput" class="form-control-file" accept=".docx">
+                            </div>
+                            <input type="submit" class="btn btn-primary">Cargar archivo</input>
+              
+                        </form>
+               
+        </div>
+
+        <div>
+            <iframe src="~/Plantilla/CONTRATRO DE EMPLEO PLANTILLA.docx" frameborder="0" width="100%" height="600px"></iframe>
+
+        </div>
+
+
+
+    </div>
+</div>
+
