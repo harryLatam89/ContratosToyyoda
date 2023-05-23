@@ -2,6 +2,7 @@
 using ContratosToyyoda.Data.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Net.Mail;
 
 namespace ContratosToyyoda.Models
 {
@@ -15,6 +16,11 @@ namespace ContratosToyyoda.Models
         [Required(ErrorMessage = "apellido es requerido")]
         [Display(Name = "APELLIDO")]
         public string apellido { get; set; }
+
+        [Required(ErrorMessage = "email es requerido")]
+        [Display(Name = "email")]
+        public string email { get; set; }
+
         [Required(ErrorMessage = "sueldo es requerido")]
         [Display(Name = "SUELDO")]
         public double sueldo { get; set; }

@@ -1,4 +1,7 @@
 ﻿using ContratosToyyoda.Models;
+using System.ComponentModel.DataAnnotations;
+
+
 
 namespace ContratosToyyoda.Data
 {
@@ -18,8 +21,8 @@ namespace ContratosToyyoda.Data
                     {
                         new Usuario()
                         {
-                            
-                              nombreUsuario= "RP09041",
+
+                              email= "harrisson.rivera@toyyoda.com",
                               nombre=   "Harrisson" ,
                               apellido=  "Rivera" ,
                               contrasena=  "RP09041",
@@ -27,18 +30,16 @@ namespace ContratosToyyoda.Data
                         },
                       new Usuario()
                         {
-                             
-                              nombreUsuario= "AA19103",
-                              nombre=  "Claudia"   ,
+                              email= "Claudia.Avila@toyyoda.com",
+                             nombre=  "Claudia"   ,
                               apellido=  "Avila"  ,
                               contrasena=  "AA19103",
 
                         },
                         new Usuario()
                         {
-                             
-                              nombreUsuario= "RD18025",
-                              nombre=  "Marvin"  ,
+                               email="Marvin.Rodríguez@toyyoda.com",
+                             nombre=  "Marvin"  ,
                               apellido=   "Rodríguez" ,
                               contrasena= "RD18025",
 
@@ -95,12 +96,16 @@ namespace ContratosToyyoda.Data
                 {
                     context.Contratos.AddRange(new List<Contrato>()
                     {
-                        new Contrato()
+                     
+
+                    new Contrato()
                      {
                           
                          nombre="primer contrato",
 
                          apellido="primer contrato",
+
+                         email= "primer.contrato@toyyoda.com",
 
                          sueldo =360.0,
 
@@ -108,7 +113,7 @@ namespace ContratosToyyoda.Data
 
                          fechaIngreso=DateTime.Now.AddDays(-10),
                          fechaEmision =DateTime.Now.AddDays(-10),
-                          idUser=1,
+                          idUser=17,
                           idPais=2
                       },
                 
@@ -119,6 +124,8 @@ namespace ContratosToyyoda.Data
 
                          apellido="segundo contrato",
 
+                           email= "segundo.contrato@toyyoda.com",
+
                          sueldo =360.0,
 
                          tipoContrato=TipoContrato.permanente,
@@ -126,7 +133,7 @@ namespace ContratosToyyoda.Data
                          fechaIngreso=DateTime.Now.AddDays(-10),
                           fechaEmision =DateTime.Now.AddDays(-10),
 
-                          idUser=2,
+                          idUser=18,
                           idPais=2
 
 
@@ -136,9 +143,11 @@ namespace ContratosToyyoda.Data
                         new Contrato()
                      {
                          
-                          nombre="Segundo contrato",
+                          nombre="Tercer contrato",
 
-                         apellido="segundo contrato",
+                         apellido="Tercer contrato",
+
+                              email= "Tercer.contrato@toyyoda.com",
 
                          sueldo =5000.0,
 
@@ -147,7 +156,7 @@ namespace ContratosToyyoda.Data
                          fechaIngreso=DateTime.Now.AddDays(-10),
                           fechaEmision =DateTime.Now.AddDays(-10),
 
-                          idUser=3,
+                          idUser=19,
                           idPais=3
                       }
 

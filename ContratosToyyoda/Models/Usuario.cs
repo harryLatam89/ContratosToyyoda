@@ -1,6 +1,7 @@
 ﻿using ContratosToyyoda.Data.Base;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using System.ComponentModel.DataAnnotations;
+using System.Net.Mail;
 
 namespace ContratosToyyoda.Models
 {
@@ -9,9 +10,8 @@ namespace ContratosToyyoda.Models
         [Key]
         public int Id { get; set; }
 
-        [Display(Name = "USUARIO")]
-        [Required(ErrorMessage ="nombre de usuario es obligatorio")]
-        public string nombreUsuario { get; set;}
+        [Display(Name = "CORREO")]
+        public string email { get; set; }
 
         [Display(Name = "NOMBRE")]
         [Required(ErrorMessage = "nombre es obligatorio")]
@@ -24,6 +24,7 @@ namespace ContratosToyyoda.Models
         [Display(Name = "CONTRASEÑA")]
         [Required(ErrorMessage = "una contraseña es obligatorio")]
         public string contrasena { get; set; }
+
 
 
 

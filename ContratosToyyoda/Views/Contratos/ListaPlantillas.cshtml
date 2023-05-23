@@ -1,0 +1,23 @@
+﻿@model string[]
+
+<h1>Archivos disponibles:</h1>
+
+@if (Model.Length > 0)
+{
+    <ul>
+        @foreach (string archivo in Model)
+        {
+            <li>@archivo</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No hay archivos disponibles.</p>
+}
+
+<div style="position: fixed; right: 25px; bottom: 75px;" class="row">
+    <div tyle=margin-right: 10px class="col-md-12 text-center">
+              <button type="button" class="btn btn-info"><a style=" color: black" asp-controller="@Model" asp-action="Plantilla">Nueva Plantilla</a></button>
+    </div>
+</div>

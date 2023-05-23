@@ -24,8 +24,9 @@ namespace ContratosToyyoda.Data.Services
                 idPais = dato.idPais,
                 idUser = dato.idUser,
                 fechaIngreso = dato.fechaIngreso,
-                fechaEmision = dato.fechaEmision
-            };
+                fechaEmision = dato.fechaEmision,
+                 email = dato.email
+        };
             await _context.Contratos.AddAsync(nuevoContrato);
             await _context.SaveChangesAsync();
             //agregar el 
@@ -42,7 +43,7 @@ namespace ContratosToyyoda.Data.Services
             var response = new NuevoContratoMenusVM()
             {
                 Paises = await _context.Paises.OrderBy(p => p.pais).ToListAsync(),
-                Usuarios = await _context.Usuarios.OrderBy(p => p.nombreUsuario).ToListAsync(),
+                Usuarios = await _context.Usuarios.OrderBy(p => p.email).ToListAsync(),
             };
 
             return response;
@@ -63,6 +64,7 @@ namespace ContratosToyyoda.Data.Services
                 dbContrato.idUser = dato.idUser;
                 dbContrato.fechaIngreso = dato.fechaIngreso;
                 dbContrato.fechaEmision = dato.fechaEmision;
+                dbContrato.email=dato.email;
                 
                 await _context.SaveChangesAsync();
             };

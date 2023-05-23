@@ -1,36 +1,59 @@
-﻿@using ContratosToyyoda.Data.ViewModels
-@model PlantillaViewModel
+﻿@using ContratosToyyoda.Data;
+@using ContratosToyyoda.Data.ViewModels;
+@using System.IO
+@model  PlantillaViewModel
+
 
 
 @{
-    ViewData["Title"] = "Crear Multiples Contratos";
+    ViewData["Title"] = "Cargar nueva plantilla de contrato";
+
 
 }
 
-
 <div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="cargarAchivo">
+    <div class="col-md-8 offset-2">
+        <p>
+            <h4>Cargar nueva plantilla de contrato</h4>
+        </p>
 
-             <h1>seleccionar plantilla en word </h1>
+        <div class="row">
+            <div class="col-md-8 offset-2">
                 <form asp-action="Plantilla" enctype="multipart/form-data" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="row">
+                        <div class="col-md-6">
                             <div class="form-group">
-                    <label  for="fileInput">Seleccionar archivo:</label>
-                    <input  type="file" id="fileInput" name="fileInput" class="form-control-file" accept=".docx">
+                                <label asp-for="fileInput" class="control-label"></label>
+                                <input asp-for="fileInput" class="form-control" />
+                                <span asp-validation-for="fileInput" class="text-danger"></span>
                             </div>
-                            <input type="submit" class="btn btn-primary">Cargar archivo</input>
-              
-                        </form>
-               
+                            <div class="form-group">
+                                <label asp-for="tipoContrato" class="control-label"></label>
+                                <select asp-for="tipoContrato" class="form-control" asp-items="Html.GetEnumSelectList<TipoContrato>()"></select>
+                                <span asp-validation-for="tipoContrato" class="text-danger"></span>
+                            </div>
+                          
+
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Agregar" class="btn btn-outline-success float-right" />
+                    </div>
+
+                </form>
+
+            </div>
         </div>
-
-        <div>
-            <iframe src="~/Plantilla/CONTRATRO DE EMPLEO PLANTILLA.docx" frameborder="0" width="100%" height="600px"></iframe>
-
-        </div>
-
-
 
     </div>
-</div>
 
+    <div>
+
+    </div>
+
+
+
+</div>

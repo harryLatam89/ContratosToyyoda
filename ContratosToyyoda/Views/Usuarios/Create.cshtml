@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-8 offset-2">
                 <form asp-action="Create">
-                   <div asp-validation-summary="ModelOnly" class="text-danger"></div> 
+                   <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
 
                     <div class="form-group">
@@ -26,15 +26,16 @@
                         <span asp-validation-for="apellido" class="text-danger"></span>
                     </div>
                     <div class="form-group">
-                        <label asp-for="nombreUsuario" class="control-label"></label>
-                        <input asp-for="nombreUsuario" class="form-control" />
-                        <span asp-validation-for="nombreUsuario" class="text-danger"></span>
+                        <label asp-for="email" class="control-label"></label>
+                        <input asp-for="email" class="form-control" />
+                        <span asp-validation-for="email" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="contrasena" class="control-label"></label>
                         <input asp-for="contrasena" class="form-control" />
                         <span asp-validation-for="contrasena" class="text-danger"></span>
                     </div>
+
 
                     <div class="form-group">
                         <a class="btn btn-outline-secondary" asp-action="Index">Mostar todos</a>

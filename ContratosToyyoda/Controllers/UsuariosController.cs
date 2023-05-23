@@ -32,7 +32,7 @@ namespace ContratosToyyoda.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("nombreUsuario,nombre,apellido,contrasena")]Usuario dato)
+        public async Task<IActionResult> Create([Bind("nombre,apellido,email,contrasena")]Usuario dato)
         {
           
             if (!ModelState.IsValid)
@@ -74,7 +74,7 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,apellido,nombreUsuario,contrasena")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,apellido,email,contrasena")] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {

@@ -3,6 +3,7 @@ using ContratosToyyoda.Data.Base;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
+
 namespace ContratosToyyoda.Models
 {
     public class Contrato:IEntityBase
@@ -29,6 +30,8 @@ namespace ContratosToyyoda.Models
         [Display(Name = "FECHA EMISION")]
         public DateTime fechaEmision { get; set; }
 
+        [Display(Name = "email")]
+        public string email { get; set; }        
         //relaciones 
 
         // con user

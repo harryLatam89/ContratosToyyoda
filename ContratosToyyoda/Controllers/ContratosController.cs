@@ -23,6 +23,9 @@ using System.Xml.Linq;
 using System.IO;
 using Aspose.Words;
 using Aspose.Words.Saving;
+using System.Net;
+using System.Net.Mail;
+using static Xamarin.Essentials.Permissions;
 
 
 namespace ContratosToyyoda.Controllers
@@ -47,7 +50,7 @@ namespace ContratosToyyoda.Controllers
             ViewBag.Paises = new SelectList(contratosMenus.Paises, "id", "pais");
             foreach (var item in ViewBag.Usuarios.Items)
             {
-                Console.WriteLine($"nombre: {item.nombreUsuario}, apellido: {item.apellido}");
+                Console.WriteLine($"nombre: {item.email}, apellido: {item.apellido}");
             }
             Console.WriteLine($"nombre: {ViewBag.Usuarios.Items}");
             return View(allContratos);
@@ -61,20 +64,18 @@ namespace ContratosToyyoda.Controllers
         }
 
         // GET 
-
         public async Task<IActionResult> Create()
         {
 
             var contratosMenus = await _service.GetNuevoMenusValores();
 
-            var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.nombreUsuario });
+            var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.email });
             ViewBag.Usuarios = usuariosSelectList;
             var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
             ViewBag.Paises = paisesSelectList;
 
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Create(NuevoContratoVM contrato)
@@ -83,7 +84,7 @@ namespace ContratosToyyoda.Controllers
             {
                 var contratosMenus = await _service.GetNuevoMenusValores();
 
-                var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.nombreUsuario });
+                var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.email });
                 ViewBag.Usuarios = usuariosSelectList;
                 var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
                 ViewBag.Paises = paisesSelectList;
@@ -93,8 +94,6 @@ namespace ContratosToyyoda.Controllers
             await _service.AddNuevoContratoAsync(contrato);
             return RedirectToAction(nameof(Index));
         }
-
-
 
         //Get contrato/Edit/1
         [AllowAnonymous]
@@ -121,7 +120,7 @@ namespace ContratosToyyoda.Controllers
 
             var contratosMenus = await _service.GetNuevoMenusValores();
 
-            var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.nombreUsuario });
+            var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.email });
             ViewBag.Usuarios = usuariosSelectList;
             var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
             ViewBag.Paises = paisesSelectList;
@@ -139,7 +138,7 @@ namespace ContratosToyyoda.Controllers
             {
                 var contratosMenus = await _service.GetNuevoMenusValores();
 
-                var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.nombreUsuario });
+                var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.email });
                 ViewBag.Usuarios = usuariosSelectList;
                 var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
                 ViewBag.Paises = paisesSelectList;
@@ -150,14 +149,12 @@ namespace ContratosToyyoda.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
         public async Task<IActionResult> Multiple()
         {
 
 
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Multiple(IFormFile fileInput)
         {
@@ -176,13 +173,14 @@ namespace ContratosToyyoda.Controllers
                         {
 
                             string nombre = values[0];                                                      
-                            string apellido = values[1];                           
-                            string sueldoStr = values[2];
-                            string tipoContratoStr = values[3]; 
-                            string fechaIngresoStr = values[4];
-                            string fechaEmisionStr = values[5];
-                            string idPaisStr = values[6];
-                            string idUserStr = values[7];
+                            string apellido = values[1];
+                            string email = values[2];
+                            string sueldoStr = values[3];
+                            string tipoContratoStr = values[4]; 
+                            string fechaIngresoStr = values[5];
+                            string fechaEmisionStr = values[6];
+                            string idPaisStr = values[7];
+                            string idUserStr = values[8];
 
                             if (Enum.TryParse(tipoContratoStr, out TipoContrato tipoContrato)) {
                               
@@ -191,7 +189,7 @@ namespace ContratosToyyoda.Controllers
 
                                     if (int.TryParse(idPaisStr, out int idPais)) {
                                   
-                                        if (int.TryParse(idPaisStr, out int idUser)) {
+                                        if (int.TryParse(idUserStr, out int idUser)) {
                                          
                                             if (DateTime.TryParseExact(fechaEmisionStr, "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaEmision)) {
                                                
@@ -204,6 +202,7 @@ namespace ContratosToyyoda.Controllers
                                                     {
                                                         nombre = nombre,
                                                         apellido = apellido,
+                                                        email= email,
                                                         tipoContrato = tipoContrato,
                                                         sueldo = sueldo,
                                                         idPais = idPais,
@@ -249,56 +248,100 @@ namespace ContratosToyyoda.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public async Task<IActionResult> Plantilla()
+   
+       public async Task<IActionResult> Plantilla()
         {
+               
 
 
             return View();
         }
 
-        
 
-        [HttpPost]
-        public async Task<IActionResult> Plantilla(IFormFile fileInput)
+        public async Task<IActionResult> ListaPlantillas()
         {
-            string filePath;
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla");
+            string[] archivos = Directory.GetFiles(filePath);
+            string[] nombres = new string[archivos.Length];
 
-            if (fileInput != null && fileInput.Length > 0)
-                {
-                Console.WriteLine(_webHostEnvironment.WebRootPath);
-                Console.WriteLine(fileInput.FileName);
-                filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/",fileInput.FileName);
-                Console.WriteLine("Concatela la cadena *********");
-                Console.WriteLine(filePath);
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        fileInput.CopyTo(stream);
-                    }
-                }
-            
-            else
+
+
+
+            for (int i = 0; i < archivos.Length; i++)
             {
-
+                nombres[i] = Path.GetFileName(archivos[i]);
             }
 
-            filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/", fileInput.FileName);
-
-            // Pasar la ruta del archivo a la vista mediante el modelo
-            var model = new PlantillaViewModel(filePath);
-            string fileContent = System.IO.File.ReadAllText(filePath);
-            ViewBag.FileContent = fileContent;
-
-            return View(model);
+            return View(nombres);
         }
 
+
+        [HttpPost]
+        public async Task<IActionResult> Plantilla(PlantillaViewModel plantilla)
+        {
+           string filePath;
+
+           if (plantilla.fileInput != null && plantilla.fileInput.Length > 0)
+            {
+                
+                if (plantilla.tipoContrato == TipoContrato.temporal)
+                {
+                    filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        plantilla.fileInput.CopyTo(stream);
+                    }
+                }
+
+
+                else
+                {
+                    filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        plantilla.fileInput.CopyTo(stream);
+                    }
+                }
+         
+            }
+       
+           
+
+            return View("CargaExitosa");
+        }
 
         [AllowAnonymous]
         public async Task<IActionResult> Imprimir(int id)
         {
-           // Obtener los datos del contrato desde la base de datos
+            // Obtener los datos del contrato desde la base de datos
+            IActionResult resultado = await CrearPDF(id);
+
+            string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", id + ".pdf");
+            if (resultado is ContentResult contentResult)
+            {
+                 rutaPdf = contentResult.Content;
+                Console.WriteLine(rutaPdf);
+            }
+
+            return RedirectToAction(nameof(AbrirArchivoPDF), new { rutaArchivo = rutaPdf });
+        }
+
+        public async Task<IActionResult> CrearPDF(int id)
+        {
             var contratodetalles = await _service.GetContratoByIdAsync(id);
-            string filePath = "C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Plantilla/CONTRATO DE EMPLEO PLANTILLA.docx";
-            // Ruta de la plantilla de Word
+            string filePath;
+            if (contratodetalles.tipoContrato == TipoContrato.temporal)
+            {
+
+                filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
+            }
+
+            else
+            {
+
+                filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
+            }
+
 
             // Cargar la plantilla de Word
             DocX doc;
@@ -318,7 +361,7 @@ namespace ContratosToyyoda.Controllers
             doc.SaveAs(rutaTemporal);
             string idstr = contratodetalles.Id.ToString();
             // Generar el archivo PDF a partir del documento Word modificado
-            string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", idstr+".pdf");
+            string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", idstr + ".pdf");
             Console.WriteLine(rutaPdf);
 
             // Load the word file to be converted to PDF
@@ -340,9 +383,9 @@ namespace ContratosToyyoda.Controllers
 
             System.IO.File.Delete(rutaTemporal);
 
-
-            return RedirectToAction(nameof(AbrirArchivoPDF), new { rutaArchivo = rutaPdf });
+            return  Content(rutaPdf);
         }
+
 
         public IActionResult AbrirArchivoPDF(string rutaArchivo)
         {
@@ -360,6 +403,57 @@ namespace ContratosToyyoda.Controllers
             return File(contenidoArchivo, "application/pdf");
         }
 
+        [AllowAnonymous]
+        public async Task<IActionResult> Email(int id)
+        {
+
+            string rutaPDF="";
+            IActionResult resultado = await CrearPDF(id);
+                        if (resultado is ContentResult contentResult)
+            {
+                rutaPDF = contentResult.Content;
+                
+            }
+
+            var contratodetalles = await _service.GetContratoByIdAsync(id);
+            // Dirección de correo del destinatario
+         
+            // Configuración del cliente SMTP
+            string remitente = "ContratosToyyoda@gmx.com";
+            string contrasena = "Welcome.123@123";
+            string destinatario = contratodetalles.email;
+
+            string asunto = "Copia contrato";
+            string cuerpo = "Le adjuntamos el contrato";
+
+            MailMessage correo = new MailMessage(remitente, "harry.algoritmico1@gmail.com", asunto, cuerpo);
+
+            SmtpClient smtpClient = new SmtpClient("smtp.mail.gmx.com", 587);
+            smtpClient.UseDefaultCredentials =false;
+            smtpClient.Credentials = new NetworkCredential(remitente, contrasena);
+            smtpClient.EnableSsl = true;
+
+            // Adjuntar el archivo PDF
+            Attachment attachment = new Attachment(rutaPDF);
+            correo.Attachments.Add(attachment);
+
+            // Enviar el correo electrónico
+            try
+            {
+                smtpClient.Send(correo);
+            }
+            catch (SmtpException ex)
+            {
+                // Manejar excepción de envío de correo
+                Console.WriteLine(ex);
+            }
+            finally
+            {
+                correo.Dispose();
+                smtpClient.Dispose();
+            }
+            return RedirectToAction("Index");
+        }
 
 
 
