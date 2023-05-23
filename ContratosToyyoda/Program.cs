@@ -1,8 +1,10 @@
 using ContratosToyyoda.Data;
 using ContratosToyyoda.Data.Services;
+using ContratosToyyoda.Helpers;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using Xceed.Document.NET;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IPaisesService, PaisesService>();
 builder.Services.AddScoped<IContratosService, ContratosService>();
+builder.Services.AddScoped<HelperMail>();
 
 var app = builder.Build();
 

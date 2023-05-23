@@ -26,6 +26,7 @@ using Aspose.Words.Saving;
 using System.Net;
 using System.Net.Mail;
 using static Xamarin.Essentials.Permissions;
+using ContratosToyyoda.Helpers;
 
 
 namespace ContratosToyyoda.Controllers
@@ -35,11 +36,14 @@ namespace ContratosToyyoda.Controllers
     {
         private readonly IContratosService _service;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private HelperMail helpermail;
+    
 
-        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment)
+        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail)
         {
             _service = service;
             _webHostEnvironment = webHostEnvironment;
+            this.helpermail = helpermail;
 
         }
         public async Task<IActionResult> Index()
@@ -403,6 +407,9 @@ namespace ContratosToyyoda.Controllers
             return File(contenidoArchivo, "application/pdf");
         }
 
+
+   
+
         [AllowAnonymous]
         public async Task<IActionResult> Email(int id)
         {
@@ -417,41 +424,17 @@ namespace ContratosToyyoda.Controllers
 
             var contratodetalles = await _service.GetContratoByIdAsync(id);
             // Dirección de correo del destinatario
-         
-            // Configuración del cliente SMTP
-            string remitente = "ContratosToyyoda@gmx.com";
-            string contrasena = "Welcome.123@123";
-            string destinatario = contratodetalles.email;
 
-            string asunto = "Copia contrato";
-            string cuerpo = "Le adjuntamos el contrato";
-
-            MailMessage correo = new MailMessage(remitente, "harry.algoritmico1@gmail.com", asunto, cuerpo);
-
-            SmtpClient smtpClient = new SmtpClient("smtp.mail.gmx.com", 587);
-            smtpClient.UseDefaultCredentials =false;
-            smtpClient.Credentials = new NetworkCredential(remitente, contrasena);
-            smtpClient.EnableSsl = true;
-
-            // Adjuntar el archivo PDF
-            Attachment attachment = new Attachment(rutaPDF);
-            correo.Attachments.Add(attachment);
 
             // Enviar el correo electrónico
-            try
-            {
-                smtpClient.Send(correo);
-            }
-            catch (SmtpException ex)
-            {
-                // Manejar excepción de envío de correo
-                Console.WriteLine(ex);
-            }
-            finally
-            {
-                correo.Dispose();
-                smtpClient.Dispose();
-            }
+            this.helpermail.SendMail(contratodetalles.email, "Copia Contrato", "copia contrato");
+            ViewData["MENSAJE"] = "Mensaje enviado a '" + contratodetalles.email + "'";
+
+
+
+
+
+
             return RedirectToAction("Index");
         }
 
