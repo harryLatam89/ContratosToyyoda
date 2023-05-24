@@ -272,6 +272,8 @@ namespace ContratosToyyoda.Controllers
 
         public async Task<IActionResult> CrearPDF(int id)
         {
+            Console.WriteLine("estoy en la crear pdf con id "+ id);
+
             //carando datos del contrato
             var contratodetalles = await _service.GetContratoByIdAsync(id);
             string filePath;
@@ -371,25 +373,48 @@ namespace ContratosToyyoda.Controllers
             // Devolver el contenido del archivo como un archivo PDF
             return File(contenidoArchivo, "application/pdf");
         }
-           
 
+        //Get contrato/Edit/1
         [AllowAnonymous]
         public async Task<IActionResult> Email(int id)
         {
 
+            var contratodetalles = await _service.GetContratoByIdAsync(id);
+            if (contratodetalles == null) return View("NotFound");
+
+            var response = new EmailVM()
+            {
+                email = contratodetalles.email,
+                asunto = "Envio copia Correo",
+                mensaje = "Adjuntamos Copia de su contrato",
+                idContrato = contratodetalles.Id
+            };
+
+           
+
+            
+            return View(response); ;
+        }
+
+
+       [HttpPost]
+        public async Task<IActionResult> Email(int id, string email, string asunto, string mensaje)
+        {
+            int IdContrato = id;
+            Console.WriteLine("*************** email es ****"+email);
             string rutaPDF="";
-            IActionResult resultado = await CrearPDF(id);
+            IActionResult resultado = await CrearPDF(IdContrato);
                         if (resultado is ContentResult contentResult)
             {
                 rutaPDF = contentResult.Content;
                 
             }
 
-            var contratodetalles = await _service.GetContratoByIdAsync(id);
+            var contratodetalles = await _service.GetContratoByIdAsync(IdContrato);
             // Dirección de correo del destinatario
 
             // Enviar el correo electrónico
-            this.helpermail.SendMail(contratodetalles.email, "Copia Contrato", "copia contrato");
+            this.helpermail.SendMail(email, asunto, mensaje, rutaPDF);
             ViewData["MENSAJE"] = "Mensaje enviado a '" + contratodetalles.email + "'";
 
             return RedirectToAction("Index");

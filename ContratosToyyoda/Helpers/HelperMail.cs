@@ -16,7 +16,7 @@ namespace ContratosToyyoda.Helpers
             this.configuration = configuration;
         }
         private MailMessage ConfigureMail
-            (string destinatario, string asunto, string mensaje)
+            (string destinatario, string asunto, string mensaje, string rutaArchivoPdf)
         {
             string from = this.configuration.GetValue<string>("MailSettings:user");
             MailMessage mail = new MailMessage();
@@ -25,6 +25,9 @@ namespace ContratosToyyoda.Helpers
             mail.Subject = asunto;
             mail.Body = mensaje;
             mail.IsBodyHtml = true;
+            Attachment adjunto = new Attachment(rutaArchivoPdf);
+            mail.Attachments.Add(adjunto);
+
             return mail;
         }
 
@@ -48,9 +51,10 @@ namespace ContratosToyyoda.Helpers
             client.Send(mail);
         }
 
-        public void SendMail(string destinatario, string asunto, string mensaje)
-        {
-            MailMessage mail = this.ConfigureMail(destinatario, asunto, mensaje);
+        public void SendMail(string destinatario, string asunto, string mensaje, string rutaArchivoPdf)
+        {   
+
+            MailMessage mail = this.ConfigureMail(destinatario, asunto, mensaje, rutaArchivoPdf);
             this.ConfigureSmtp(mail);
         }
     }
