@@ -27,7 +27,7 @@ using System.Net;
 using System.Net.Mail;
 using static Xamarin.Essentials.Permissions;
 using ContratosToyyoda.Helpers;
-
+using Aspose.Words.Drawing;
 
 namespace ContratosToyyoda.Controllers
 {
@@ -36,13 +36,14 @@ namespace ContratosToyyoda.Controllers
     {
         private readonly IContratosService _service;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IPaisesService _paisesService;
         private HelperMail helpermail;
     
-
-        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail)
+        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail, IPaisesService paisesService)
         {
             _service = service;
             _webHostEnvironment = webHostEnvironment;
+            _paisesService = paisesService;
             this.helpermail = helpermail;
 
         }
@@ -251,69 +252,8 @@ namespace ContratosToyyoda.Controllers
             }
             return RedirectToAction(nameof(Index));
         }
-
-   
-       public async Task<IActionResult> Plantilla()
-        {
-               
-
-
-            return View();
-        }
-
-
-        public async Task<IActionResult> ListaPlantillas()
-        {
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla");
-            string[] archivos = Directory.GetFiles(filePath);
-            string[] nombres = new string[archivos.Length];
-
-
-
-
-            for (int i = 0; i < archivos.Length; i++)
-            {
-                nombres[i] = Path.GetFileName(archivos[i]);
-            }
-
-            return View(nombres);
-        }
-
-
-        [HttpPost]
-        public async Task<IActionResult> Plantilla(PlantillaViewModel plantilla)
-        {
-           string filePath;
-
-           if (plantilla.fileInput != null && plantilla.fileInput.Length > 0)
-            {
-                
-                if (plantilla.tipoContrato == TipoContrato.temporal)
-                {
-                    filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        plantilla.fileInput.CopyTo(stream);
-                    }
-                }
-
-
-                else
-                {
-                    filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
-                    using (var stream = new FileStream(filePath, FileMode.Create))
-                    {
-                        plantilla.fileInput.CopyTo(stream);
-                    }
-                }
-         
-            }
-       
            
-
-            return View("CargaExitosa");
-        }
-
+ 
         [AllowAnonymous]
         public async Task<IActionResult> Imprimir(int id)
         {
@@ -332,8 +272,10 @@ namespace ContratosToyyoda.Controllers
 
         public async Task<IActionResult> CrearPDF(int id)
         {
+            //carando datos del contrato
             var contratodetalles = await _service.GetContratoByIdAsync(id);
             string filePath;
+            //se seleciona la plantilla a utilizar en base el tipo de contrato
             if (contratodetalles.tipoContrato == TipoContrato.temporal)
             {
 
@@ -346,23 +288,46 @@ namespace ContratosToyyoda.Controllers
                 filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
             }
 
+    
+                //Opteniendo url de la imagen 
+           var detallepais = await _paisesService.GetByIdAsync(contratodetalles.idPais);
+            string logoUrl = detallepais.logo.ToString();
 
-            // Cargar la plantilla de Word
-            DocX doc;
-            doc = DocX.Load(filePath);
-            Console.WriteLine(contratodetalles.nombre);
+            Document doc1 = new Document(filePath);
+            using (System.Drawing.Image imagen = System.Drawing.Image.FromFile(logoUrl))
+            {
+                // Agregar una imagen al documento
+                Shape imagenShape = new Shape(doc1, ShapeType.Image);
+                imagenShape.ImageData.SetImage(logoUrl);
+
+              
+               
+                // Establece el nuevo ancho y altura de la imagen
+                imagenShape.Width = 150;
+                imagenShape.Height = 150;
+
+
+                imagenShape.Left = 300; // Posición horizontal de la imagen
+                imagenShape.Top = 100; // Posición vertical de la imagen
+
+                // Insertar la imagen en el documento
+                DocumentBuilder builder = new DocumentBuilder(doc1);
+                builder.InsertNode(imagenShape);
+            }
+
             // Reemplazar los marcadores de posición en la plantilla con los datos del contrato
-            doc.ReplaceText("[nombre]", contratodetalles.nombre);
-            doc.ReplaceText("[apellido]", contratodetalles.apellido);
-            doc.ReplaceText("[tipoContrato]", contratodetalles.tipoContrato.ToString());
-            doc.ReplaceText("[sueldo]", contratodetalles.sueldo.ToString());
-            doc.ReplaceText("[idPais]", contratodetalles.idPais.ToString());
-            doc.ReplaceText("[idUser]", contratodetalles.idUser.ToString());
-            doc.ReplaceText("[fechaEmision]", contratodetalles.fechaEmision.ToString("dd/MM/yyyy"));
-            doc.ReplaceText("[fechaIngreso]", contratodetalles.fechaIngreso.ToString("dd/MM/yyyy"));
+
+            doc1.Range.Replace("[nombre]", contratodetalles.nombre);
+            doc1.Range.Replace("[apellido]", contratodetalles.apellido);
+            doc1.Range.Replace("[tipoContrato]", contratodetalles.tipoContrato.ToString());
+            doc1.Range.Replace("[sueldo]", contratodetalles.sueldo.ToString());
+            doc1.Range.Replace("[idPais]", contratodetalles.pais.pais.ToString());
+            doc1.Range.Replace("[idUser]", contratodetalles.usuario.nombre.ToString() + "   " + contratodetalles.usuario.apellido.ToString());
+            doc1.Range.Replace("[fechaEmision]", contratodetalles.fechaEmision.ToString("dd/MM/yyyy"));
+            doc1.Range.Replace("[fechaIngreso]", contratodetalles.fechaIngreso.ToString("dd/MM/yyyy"));
             // Guardar el documento modificado en una ubicación temporal
             string rutaTemporal = Path.Combine(Path.GetTempPath(), "contrato_temp.docx");
-            doc.SaveAs(rutaTemporal);
+            doc1.Save(rutaTemporal);
             string idstr = contratodetalles.Id.ToString();
             // Generar el archivo PDF a partir del documento Word modificado
             string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", idstr + ".pdf");
@@ -406,9 +371,7 @@ namespace ContratosToyyoda.Controllers
             // Devolver el contenido del archivo como un archivo PDF
             return File(contenidoArchivo, "application/pdf");
         }
-
-
-   
+           
 
         [AllowAnonymous]
         public async Task<IActionResult> Email(int id)
@@ -425,15 +388,9 @@ namespace ContratosToyyoda.Controllers
             var contratodetalles = await _service.GetContratoByIdAsync(id);
             // Dirección de correo del destinatario
 
-
             // Enviar el correo electrónico
             this.helpermail.SendMail(contratodetalles.email, "Copia Contrato", "copia contrato");
             ViewData["MENSAJE"] = "Mensaje enviado a '" + contratodetalles.email + "'";
-
-
-
-
-
 
             return RedirectToAction("Index");
         }

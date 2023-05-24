@@ -21,8 +21,8 @@ namespace ContratosToyyoda.Models
         public string direccion { get; set; }
 
         [Display(Name = "LOGO")]
-        [Required(ErrorMessage = "logo url es obligatorio")]
-        public string logoUrl { get; set; }
+        [Required(ErrorMessage = "Un logo es obligatorio")]
+        public string logo { get; set; }
 
     }
 }

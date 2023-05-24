@@ -49,8 +49,7 @@ namespace ContratosToyyoda.Data
                     context.SaveChanges();
 
                 }
-                ///pises
-                ///
+            /*   
                 if (!context.Paises.Any())
                 {
                     context.Paises.AddRange(new List<Pais>()
@@ -64,7 +63,7 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                            direccion ="Av. Narciso Monterrey 14A, Zacatecoluca, La Paz, El salvador",
 
-                          logoUrl ="https://drive.google.com/file/d/1MbdJrdfWXCmviCNCHwR5isD5SjqMgOnz/view?usp=sharing"
+                          logo ="https://drive.google.com/file/d/1MbdJrdfWXCmviCNCHwR5isD5SjqMgOnz/view?usp=sharing"
                        },
 
                     new Pais()
@@ -75,7 +74,7 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                           direccion ="Av. Las Americas, Quezaltenango, Guatemala",
 
-                          logoUrl ="https://drive.google.com/file/d/197BcS_9G3a-iFmFMe9QoQUl7sD9znMK4/view?usp=share_link"
+                          logo ="https://drive.google.com/file/d/197BcS_9G3a-iFmFMe9QoQUl7sD9znMK4/view?usp=share_link"
                           },
 
                     new Pais()
@@ -85,7 +84,7 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                            direccion ="Avenido Cervantes Number 1515, Tegucigalpa, Honduras",
 
-                          logoUrl ="https://drive.google.com/file/d/1vGVJ-wpgpANN5mQNP4l8xZdkdCyyP_lU/view?usp=share_link",
+                          logo ="https://drive.google.com/file/d/1vGVJ-wpgpANN5mQNP4l8xZdkdCyyP_lU/view?usp=share_link",
 
                         }
                     });
@@ -164,6 +163,8 @@ namespace ContratosToyyoda.Data
                     context.SaveChanges();
 
                 }
+
+                */
             }
         }
     }

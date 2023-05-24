@@ -1,4 +1,7 @@
-﻿@model Pais
+﻿@using ContratosToyyoda.Data;
+@using ContratosToyyoda.Data.ViewModels;
+@using System.IO;
+@model PaisVM
 
 @{
     ViewData["Title"] = "Agregar nuevo pais";
@@ -11,16 +14,14 @@
         </p>
         <div class="row">
             <div class="col-md-8 offset-2">
-                <form asp-action="Create">
+                <form asp-action="Create" enctype="multipart/form-data" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group text-center">
-                        <img id="logoPreview" class="border-info rounded-circle" style="max-width: 150px" />
-                    </div>
+
 
                     <div class="form-group">
-                        <label asp-for="logoUrl" class="control-label"></label>
-                        <input asp-for="logoUrl" class="form-control" />
-                        <span asp-validation-for="logoUrl" class="text-danger"></span>
+                        <label asp-for="fileInput" class="control-label"></label>
+                        <input asp-for="fileInput" class="form-control" />
+                        <span asp-validation-for="fileInput" class="text-danger"></span>
                     </div>
                     <div class="form-group">
                         <label asp-for="pais" class="control-label"></label>
@@ -29,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="region" class="control-label"></label>
-                        <input asp-for="region" class="form-control" />
+                        <input asp-for="region"  class="form-control" />
                         <span asp-validation-for="region" class="text-danger"></span>
                     </div>
                     <div class="form-group">
@@ -49,17 +50,3 @@
     </div>
 </div>
 
-@section Scripts{ 
-    <script>
-
-        $(document).ready(function () {
-            var output = document.getElementById('logoPreview');
-            output.src = $("#logoUrl").val();
-        })
-
-        $("#logoUrl").on("change", function () {
-            var output = document.getElementById('logoPreview');
-            output.src = $(this).val();
-        })
-    </script>
-}

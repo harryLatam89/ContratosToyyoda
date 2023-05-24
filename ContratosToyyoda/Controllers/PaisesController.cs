@@ -3,16 +3,21 @@ using ContratosToyyoda.Data.Services;
 using ContratosToyyoda.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ContratosToyyoda.Data.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ContratosToyyoda.Controllers
 {
     public class PaisesController : Controller
     {
         private readonly IPaisesService _service;
+    
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PaisesController(IPaisesService service)
+        public PaisesController(IPaisesService service, IWebHostEnvironment webHostEnvironment)
         {
             _service = service;
+            _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> Index()
         {   
@@ -34,14 +39,36 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("pais,region,direccion,logoUrl")]Pais dato)
-        {
+        public async Task<IActionResult> Create(PaisVM dato)
+           {
+           //validando el modelo 
             if (!ModelState.IsValid)
             {
                 return View(dato);
             }
-            await _service.AddAsync(dato);
-            return RedirectToAction(nameof(Index));
+            // cargando el archivo 
+            string filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Logos/" + dato.fileInput.FileName);
+            
+
+           
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                dato.fileInput.CopyTo(stream);
+            }
+
+            var nuevoPais = new Pais
+            {
+                pais = dato.pais,
+                direccion=dato.direccion,
+                region=dato.region,
+                logo= filePath
+
+            };
+
+            await _service.AddAsync(nuevoPais);
+           
+            
+           return RedirectToAction(nameof(Index));
         }
 
         //GET: producers/edit/1
