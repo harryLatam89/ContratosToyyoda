@@ -2,9 +2,15 @@
 
 
 <div style="position: fixed; right: 25px; bottom: 75px;"  class="Colum">
-    <div tyle=margin-right: 10px class="col-md-12 text-center">
-        <button type="button" class="btn btn-primary"><a style=" color: black" asp-controller="@Model" asp-action="Create">Agregar nuevo</a></button>
-        <button type="button" class="btn btn-secondary"><a style=" color: black" asp-controller="@Model" asp-action="Multiple">Cargar CSV contratos</a></button>
-        <button type="button" class="btn btn-info"><a style=" color: black"  asp-controller=Plantillas asp-action="ListaPlantillas">Plantillas disponibles</a></button>
+    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+
+        <button type="button" class="btn btn-primary btn-lg" style=" margin-bottom: 10px;"><a style=" color: black" asp-controller="@Model" asp-action="Create">Agregar nuevo</a></button>
+        <button type="button" class="btn btn-secondary btn-lg" style=" margin-bottom: 10px;"><a style=" color: black" asp-controller="@Model" asp-action="Multiple">Cargar CSV contratos</a></button>
+        <button type="button" class="btn btn-info btn-lg" style=" margin-bottom: 10px;"><a style=" color: black" asp-controller=Plantillas asp-action="ListaPlantillas">Plantillas disponibles</a></button>
     </div>
 </div>
+
+<!--
+      <div tyle=margin-right: 10px class="col-md-12 text-center">
+-->
+

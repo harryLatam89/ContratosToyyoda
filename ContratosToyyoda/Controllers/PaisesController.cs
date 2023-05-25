@@ -39,36 +39,15 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(PaisVM dato)
-           {
-           //validando el modelo 
+        public async Task<IActionResult> Create([Bind("pais,region,direccion,logo")] Pais dato)
+        {
             if (!ModelState.IsValid)
             {
                 return View(dato);
             }
-            // cargando el archivo 
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Logos/" + dato.fileInput.FileName);
-            
+            await _service.AddAsync(dato);
 
-           
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                dato.fileInput.CopyTo(stream);
-            }
-
-            var nuevoPais = new Pais
-            {
-                pais = dato.pais,
-                direccion=dato.direccion,
-                region=dato.region,
-                logo= filePath
-
-            };
-
-            await _service.AddAsync(nuevoPais);
-           
-            
-           return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index));
         }
 
         //GET: producers/edit/1

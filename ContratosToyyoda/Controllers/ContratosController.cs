@@ -28,6 +28,10 @@ using System.Net.Mail;
 using static Xamarin.Essentials.Permissions;
 using ContratosToyyoda.Helpers;
 using Aspose.Words.Drawing;
+using System.Net;
+using Aspose.Words;
+using Aspose.Words.Drawing;
+using System.Drawing;
 
 namespace ContratosToyyoda.Controllers
 {
@@ -260,7 +264,7 @@ namespace ContratosToyyoda.Controllers
             // Obtener los datos del contrato desde la base de datos
             IActionResult resultado = await CrearPDF(id);
 
-            string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", id + ".pdf");
+            string rutaPdf = Path.Combine(_webHostEnvironment.WebRootPath +"/Contratos/", id + ".pdf");
             if (resultado is ContentResult contentResult)
             {
                  rutaPdf = contentResult.Content;
@@ -296,27 +300,29 @@ namespace ContratosToyyoda.Controllers
             string logoUrl = detallepais.logo.ToString();
 
             Document doc1 = new Document(filePath);
-            using (System.Drawing.Image imagen = System.Drawing.Image.FromFile(logoUrl))
+            using (WebClient client = new WebClient())
             {
-                // Agregar una imagen al documento
-                Shape imagenShape = new Shape(doc1, ShapeType.Image);
-                imagenShape.ImageData.SetImage(logoUrl);
+                byte[] imageData = client.DownloadData(logoUrl);
+                using (MemoryStream stream = new MemoryStream(imageData))
+                {
+                    Image image = Image.FromStream(stream);
 
-              
-               
-                // Establece el nuevo ancho y altura de la imagen
-                imagenShape.Width = 150;
-                imagenShape.Height = 150;
+                    // Agregar una imagen al documento
+                    Shape imagenShape = new Shape(doc1, ShapeType.Image);
+                    imagenShape.ImageData.SetImage(stream);
 
+                    // Establece el nuevo ancho y altura de la imagen
+                    imagenShape.Width = 150;
+                    imagenShape.Height = 150;
 
-                imagenShape.Left = 300; // Posición horizontal de la imagen
-                imagenShape.Top = 100; // Posición vertical de la imagen
+                    imagenShape.Left = 300; // Posición horizontal de la imagen
+                    imagenShape.Top = 100; // Posición vertical de la imagen
 
-                // Insertar la imagen en el documento
-                DocumentBuilder builder = new DocumentBuilder(doc1);
-                builder.InsertNode(imagenShape);
-            }
-
+                    // Insertar la imagen en el documento
+                    DocumentBuilder builder = new DocumentBuilder(doc1);
+                    builder.InsertNode(imagenShape);
+                }
+            }   
             // Reemplazar los marcadores de posición en la plantilla con los datos del contrato
 
             doc1.Range.Replace("[nombre]", contratodetalles.nombre);

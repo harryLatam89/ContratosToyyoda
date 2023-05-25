@@ -30,7 +30,7 @@ namespace ContratosToyyoda.Models
         [Display(Name = "FECHA EMISION")]
         public DateTime fechaEmision { get; set; }
 
-        [Display(Name = "email")]
+        [Display(Name = "EMAIL")]
         public string email { get; set; }        
         //relaciones 
 
