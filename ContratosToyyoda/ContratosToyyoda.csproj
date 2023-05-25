@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Contratos\" />
-    <Folder Include="wwwroot\Logos\" />
     <Folder Include="wwwroot\Plantilla\" />
     <Folder Include="Migrations\" />
   </ItemGroup>

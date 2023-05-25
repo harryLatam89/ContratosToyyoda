@@ -1,0 +1,72 @@
+﻿﻿@using ContratosToyyoda.Data.ViewModels;
+@model VMLogin;
+
+
+@{
+    ViewData["Title"] = "Log in to your account";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ContratosToyyoda</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+</head>
+<div class="row">
+    <div class="col-md-6 offset-3">
+        <p>
+            <h4>Log in to your account</h4>
+        </p>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="col-md-12 alert alert-danger">
+                <span><b>Sorry!</b> - @TempData["Error"] </span>
+            </div>
+        }
+
+        <div class="row">
+            <div class="col-md-8 offset-2">
+                <form asp-controller="Access" asp-action="Login" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="Email" class="control-label"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PassWord" class="control-label"></label>
+                        <input asp-for="PassWord" class="form-control" />
+                        <span asp-validation-for="PassWord" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="KeepLoggedIn" class="control-label"></label>
+                        <<input type="checkbox" asp-for="KeepLoggedIn" />
+                        <span asp-validation-for="KeepLoggedIn" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input class="btn btn-outline-success float-right" type="submit" value="Log in" />
+                        
+                    </div>
+
+
+                    @if (ViewData["ValidateMessage"] != null)
+                    {
+                        <br />
+                        <br />
+                        <label>@ViewData["ValidateMessage"]</label>
+                    }
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -28,9 +28,6 @@ using System.Net.Mail;
 using static Xamarin.Essentials.Permissions;
 using ContratosToyyoda.Helpers;
 using Aspose.Words.Drawing;
-using System.Net;
-using Aspose.Words;
-using Aspose.Words.Drawing;
 using System.Drawing;
 
 namespace ContratosToyyoda.Controllers
