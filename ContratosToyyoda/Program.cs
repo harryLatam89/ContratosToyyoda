@@ -1,3 +1,4 @@
+
 using ContratosToyyoda.Data;
 using ContratosToyyoda.Data.Services;
 using ContratosToyyoda.Helpers;
@@ -22,7 +23,11 @@ builder.Services.AddAuthentication(
         option.ExpireTimeSpan = TimeSpan.FromMinutes(20);
 
     });
+
+
 // Add services to the container.
+
+
 builder.Services.AddControllersWithViews();
 
 //services configuration
@@ -46,7 +51,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthorization(    );
 app.UseAuthentication();
 
 app.MapControllerRoute(
@@ -60,6 +65,7 @@ app.UseCookiePolicy(new CookiePolicyOptions
     MinimumSameSitePolicy = SameSiteMode.Strict,
     Secure = CookieSecurePolicy.Always
 });
+
 
 AppDbInitializer.Seed(app);
 app.Run();

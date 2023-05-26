@@ -25,6 +25,9 @@ namespace ContratosToyyoda.Models
         [Required(ErrorMessage = "una contraseña es obligatorio")]
         public string contrasena { get; set; }
 
+        [Display(Name = "ROL")]
+               public string rol { get; set; }
+
 
 
 

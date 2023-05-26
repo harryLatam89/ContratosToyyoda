@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContratosToyyoda.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230524034504_removingLogo")]
-    partial class removingLogo
+    [Migration("20230526023814_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -122,6 +122,10 @@ namespace ContratosToyyoda.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("rol")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

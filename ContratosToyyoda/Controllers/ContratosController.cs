@@ -32,7 +32,7 @@ using System.Drawing;
 
 namespace ContratosToyyoda.Controllers
 {
-    
+ 
     public class ContratosController : Controller
     {
         private readonly IContratosService _service;
@@ -120,6 +120,7 @@ namespace ContratosToyyoda.Controllers
                 sueldo = contratodetalles.sueldo,
                 idPais = contratodetalles.idPais,
                 idUser = contratodetalles.idUser,
+                email=contratodetalles.email,
                 fechaEmision = contratodetalles.fechaEmision,
                 fechaIngreso = contratodetalles.fechaIngreso,
             };

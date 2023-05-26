@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContratosToyyoda.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -15,39 +15,40 @@ namespace ContratosToyyoda.Migrations
                 name: "Paises",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     pais = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     region = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    logoUrl = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    logo = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Paises", x => x.id);
+                    table.PrimaryKey("PK_Paises", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    nombreUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    contrasena = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    contrasena = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    rol = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Usuarios", x => x.id);
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Contratos",
                 columns: table => new
                 {
-                    id = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -55,23 +56,24 @@ namespace ContratosToyyoda.Migrations
                     tipoContrato = table.Column<int>(type: "int", nullable: false),
                     fechaIngreso = table.Column<DateTime>(type: "datetime2", nullable: false),
                     fechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     idUser = table.Column<int>(type: "int", nullable: false),
                     idPais = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contratos", x => x.id);
+                    table.PrimaryKey("PK_Contratos", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Contratos_Paises_idPais",
                         column: x => x.idPais,
                         principalTable: "Paises",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Contratos_Usuarios_idUser",
                         column: x => x.idUser,
                         principalTable: "Usuarios",
-                        principalColumn: "id",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 

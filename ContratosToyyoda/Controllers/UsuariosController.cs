@@ -11,6 +11,7 @@ using System;
 
 namespace ContratosToyyoda.Controllers
 {
+    
     public class UsuariosController : Controller
     {
 
@@ -32,7 +33,7 @@ namespace ContratosToyyoda.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("nombre,apellido,email,contrasena")]Usuario dato)
+        public async Task<IActionResult> Create([Bind("nombre,apellido,email,contrasena,rol")]Usuario dato)
         {
           
             if (!ModelState.IsValid)
@@ -74,13 +75,13 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,apellido,email,contrasena")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,nombre,apellido,email,contrasena,rol")] Usuario usuario)
         {
             if (!ModelState.IsValid)
             {
                 return View(usuario);
             }
-            await _service.UpdateAsync(id, usuario);
+            await _service.UpdateAsync(usuario.Id, usuario);
             return RedirectToAction(nameof(Index));
         }
 

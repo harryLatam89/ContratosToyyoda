@@ -26,30 +26,30 @@ namespace ContratosToyyoda.Data
                               nombre=   "Harrisson" ,
                               apellido=  "Rivera" ,
                               contrasena=  "RP09041",
-                   
+                               rol="user"
                         },
                       new Usuario()
                         {
-                              email= "Claudia.Avila@toyyoda.com",
+                              email= "claudia.avila@toyyoda.com",
                              nombre=  "Claudia"   ,
                               apellido=  "Avila"  ,
                               contrasena=  "AA19103",
-
+                              rol="admin"
                         },
                         new Usuario()
                         {
-                               email="Marvin.Rodríguez@toyyoda.com",
+                               email="marvin.rodriguez@toyyoda.com",
                              nombre=  "Marvin"  ,
                               apellido=   "Rodríguez" ,
                               contrasena= "RD18025",
-
+                               rol="user"
                         },
                  
                     });
                     context.SaveChanges();
 
                 }
-            /*   
+           
                 if (!context.Paises.Any())
                 {
                     context.Paises.AddRange(new List<Pais>()
@@ -63,7 +63,7 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                            direccion ="Av. Narciso Monterrey 14A, Zacatecoluca, La Paz, El salvador",
 
-                          logo ="https://drive.google.com/file/d/1MbdJrdfWXCmviCNCHwR5isD5SjqMgOnz/view?usp=sharing"
+                          logo ="https://cdn.pixabay.com/photo/2015/08/06/17/40/el-salvador-878218_640.png"
                        },
 
                     new Pais()
@@ -74,7 +74,7 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                           direccion ="Av. Las Americas, Quezaltenango, Guatemala",
 
-                          logo ="https://drive.google.com/file/d/197BcS_9G3a-iFmFMe9QoQUl7sD9znMK4/view?usp=share_link"
+                          logo ="https://cdn.pixabay.com/photo/2015/08/05/07/49/guatemala-875735_640.png"
                           },
 
                     new Pais()
@@ -84,87 +84,87 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                            direccion ="Avenido Cervantes Number 1515, Tegucigalpa, Honduras",
 
-                          logo ="https://drive.google.com/file/d/1vGVJ-wpgpANN5mQNP4l8xZdkdCyyP_lU/view?usp=share_link",
+                          logo ="https://cdn.pixabay.com/photo/2015/08/16/06/26/honduras-890666_640.png",
 
                         }
                     });
                     context.SaveChanges();
                 }
-                ////contratos
-                if (!context.Contratos.Any())
-                {
-                    context.Contratos.AddRange(new List<Contrato>()
-                    {
-                     
-
-                    new Contrato()
-                     {
-                          
-                         nombre="primer contrato",
-
-                         apellido="primer contrato",
-
-                         email= "primer.contrato@toyyoda.com",
-
-                         sueldo =360.0,
-
-                         tipoContrato=TipoContrato.permanente,
-
-                         fechaIngreso=DateTime.Now.AddDays(-10),
-                         fechaEmision =DateTime.Now.AddDays(-10),
-                          idUser=17,
-                          idPais=2
-                      },
-                
-                        new Contrato()
-                     {
-                           
-                          nombre="Segundo contrato",
-
-                         apellido="segundo contrato",
-
-                           email= "segundo.contrato@toyyoda.com",
-
-                         sueldo =360.0,
-
-                         tipoContrato=TipoContrato.permanente,
-
-                         fechaIngreso=DateTime.Now.AddDays(-10),
-                          fechaEmision =DateTime.Now.AddDays(-10),
-
-                          idUser=18,
-                          idPais=2
+                  ////contratos
+                   if (!context.Contratos.Any())
+                   {
+                       context.Contratos.AddRange(new List<Contrato>()
+                       {
 
 
+                       new Contrato()
+                        {
 
-                      },
+                            nombre="primer contrato",
 
-                        new Contrato()
-                     {
-                         
-                          nombre="Tercer contrato",
+                            apellido="primer contrato",
 
-                         apellido="Tercer contrato",
+                            email= "primer.contrato@toyyoda.com",
 
-                              email= "Tercer.contrato@toyyoda.com",
+                            sueldo =360.0,
 
-                         sueldo =5000.0,
+                            tipoContrato=TipoContrato.permanente,
 
-                         tipoContrato=TipoContrato.temporal,
+                            fechaIngreso=DateTime.Now.AddDays(-10),
+                            fechaEmision =DateTime.Now.AddDays(-10),
+                             idUser=1,
+                             idPais=2
+                         },
 
-                         fechaIngreso=DateTime.Now.AddDays(-10),
-                          fechaEmision =DateTime.Now.AddDays(-10),
+                           new Contrato()
+                        {
 
-                          idUser=19,
-                          idPais=3
-                      }
+                             nombre="Segundo contrato",
 
-                     });
-                    context.SaveChanges();
+                            apellido="segundo contrato",
 
-                }
+                              email= "segundo.contrato@toyyoda.com",
 
-                */
+                            sueldo =360.0,
+
+                            tipoContrato=TipoContrato.permanente,
+
+                            fechaIngreso=DateTime.Now.AddDays(-10),
+                             fechaEmision =DateTime.Now.AddDays(-10),
+
+                             idUser=1,
+                             idPais=2
+
+
+
+                         },
+
+                           new Contrato()
+                        {
+
+                             nombre="Tercer contrato",
+
+                            apellido="Tercer contrato",
+
+                                 email= "Tercer.contrato@toyyoda.com",
+
+                            sueldo =5000.0,
+
+                            tipoContrato=TipoContrato.temporal,
+
+                            fechaIngreso=DateTime.Now.AddDays(-10),
+                             fechaEmision =DateTime.Now.AddDays(-10),
+
+                             idUser=1,
+                             idPais=3
+                         }
+
+                        });
+                       context.SaveChanges();
+
+                   }
+
+                   
             }
         }
     }

@@ -9,7 +9,7 @@ namespace ContratosToyyoda.Data.Base
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
         Task<T> GetByIdAsync(int id);
         Task AddAsync(T entity);
-        Task UpdateAsync(int id,T entity);
+        Task UpdateAsync(int id, T entity); //int id,
         Task DeleteAsync(int id);
     }
 }

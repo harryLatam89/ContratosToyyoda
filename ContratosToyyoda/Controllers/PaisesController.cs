@@ -59,12 +59,12 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,pais,region,direccion,logoUrl")] Pais dato)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,pais,region,direccion,logo")] Pais dato)
         {
             if (!ModelState.IsValid) return View(dato);
 
       
-                await _service.UpdateAsync(id, dato);
+                await _service.UpdateAsync(id,dato);
                 return RedirectToAction(nameof(Index));
             
               }
