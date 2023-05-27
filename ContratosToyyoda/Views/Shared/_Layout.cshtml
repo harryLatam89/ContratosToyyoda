@@ -46,10 +46,14 @@
                             </li>
                         }
                     </ul>
-                    <form class="form-inline my-2 my-lg-0" asp-controller="Contratos" asp-action="Filter" style="padding-right: 25px;">
-                        <input name="searchString" type="text" class="form-control" placeholder="Buscar contrato..." aria-label="Recipient's username" aria-describedby="button-addon2">
-                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i>buscar</button>
-                    </form>
+                    <a id="filtro-btn" class="btn btn-primary" asp-controller="Filtros" asp-action="Index">Agregar filtro</a>
+            <!--
+                        <form class="form-inline my-2 my-lg-0" asp-controller="Contratos" asp-action="Filter" style="padding-right: 25px;">
+                                <input name="searchString" type="text" class="form-control" placeholder="Buscar contrato..." aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"><i class="bi bi-search"></i>buscar</button>
+                            </form>
+            -->
+          
                     @if (!string.IsNullOrEmpty(userName))
                     {
                         <div class="text-center">
