@@ -1,0 +1,70 @@
+﻿@model Contrato
+
+@{
+    ViewData["Title"] = "Detalles de contrato";
+}
+
+<div class="row">
+    <div class="col-md-8 offset-2">
+        <div class="card mb-12">
+            <div class="row g-0">
+                <div class="col-md-12">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <h5 class="card-title">
+                                @Model.nombre @Model.apellido
+                            </h5>
+                        </p>
+                    </div>
+                </div>
+
+                     <div class="col-md-4">
+                              <img src="@Model.pais.logo" width="100%" >
+                        </div>
+
+                   
+
+                
+                 
+                <div class="col-md-8">
+                    <div class="card-body">
+  
+                        <p class="card-text"><b>Nombre: </b>@Model.nombre</p>
+                        <p class="card-text"><b>Apellido: </b>@Model.apellido</p>
+                        <p class="card-text"><b>Email: </b>@Model.email</p>
+                        <p class="card-text"><b>Tipo de contrato: </b>@Model.tipoContrato</p>
+                        <p class="card-text"><b>fecha de ingreso: </b>@Model.fechaIngreso.ToString("dd MMM yy")</p>
+                        <p class="card-text"><b>Tipo de contrato: </b>@Model.fechaEmision.ToString("dd MMM yy")</p>
+                        <p class="card-text"><b>Sueldo: </b>@Model.sueldo</p>
+                        <p class="card-text">
+                            <b>Creado por: </b>
+                            <a asp-controller="Usuarios" asp-action="Details" asp-route-id="@Model.idUser">
+                                @Model.usuario.nombre  @Model.usuario.apellido
+                            </a>
+                        </p>
+                        <p class="card-text">
+                            <b>Pais: </b>
+                            <a asp-controller="Paises" asp-action="Details" asp-route-id="@Model.idPais">
+                                @Model.pais.pais
+                            </a>
+                        </p>   
+
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="card-footer">
+                        <p class="card-text">
+                            <a class="btn btn-outline-primary float-right" asp-action="Index">Regresar a lista </a>
+                            <a class="btn btn-success text-white "  asp-action="Email" asp-route-id="@Model.Id"><i class="bi bi-email"></i> Enviar por email </a>
+                            <a class="btn btn-success text-white "  asp-action="Imprimir" asp-route-id="@Model.Id"><i class="bi bi-print"></i> Imprimir </a>
+                            <form asp-action="Delete">
+                                <input type="hidden" asp-for="Id" />
+                                <input type="submit" value="Confirmar" class="btn btn-danger float-right" />
+                            </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

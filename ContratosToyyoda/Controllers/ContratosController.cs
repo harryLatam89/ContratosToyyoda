@@ -62,6 +62,24 @@ namespace ContratosToyyoda.Controllers
             return View(allContratos);
         }
 
+        //GET: producers/delete/1
+        public async Task<IActionResult> Delete(int id)
+        {
+            var contrato = await _service.GetContratoByIdAsync(id);
+            if (contrato == null) return View("NotFound");
+            return View(contrato);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var contrato = await _service.GetContratoByIdAsync(id);
+            if (contrato == null) return View("NotFound");
+
+            await _service.DeleteAsync(id);
+            return RedirectToAction(nameof(Index));
+        }
+
         //GET: Contratos/Details/1
         public async Task<IActionResult> Details(int id)
         {
