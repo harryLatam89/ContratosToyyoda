@@ -1,4 +1,6 @@
-﻿
+﻿@model FiltroVM
+@using ContratosToyyoda.Data.ViewModels;
+
 <div class="row">
     <div class="col-md-8 offset-2">
         <p>
@@ -20,24 +22,26 @@
                         </div>
                     </div>
                     <div class="align-middle">
-                            <form asp-action="PorPais">
+                           
+                                <form asp-controller="Filtros" asp-action="PorPais" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
                                 <div class="row">
                                     <div class="col-md-6">
+                                        
                                         <div class="form-group">
-                                            <label class="control-label"></label>
-                                            <select class="form-control" id="paisesDropdown" name="paisSeleccionado">
-                                                <option value="">Seleccione un país</option>
-                                                @foreach (var pais in ViewBag.Paises)
-                                                {
-                                                    <option value="@pais.Value">@pais.Text</option>
-                                                }
-                                            </select>
+                                            <label asp-for="opcion" class="control-label"></label>
+                                            <select asp-for="opcion" class="form-control" asp-items="ViewBag.Paises"></select>
+                                            <span asp-validation-for="opcion" class="text-danger"></span>
                                         </div>
+
                                     </div>
+
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Buscar" class="btn btn-outline-success float-right" />
-                                                                    </div>
+                                </div>
+
                             </form>
                             
                     </div>
@@ -45,7 +49,8 @@
 
             </div>
         </div>
-        <!--año-->
+       
+        <!--Creado por  -->
         <div class="col-md-4 col-xs-6 border-primary mb-3">
             <div class="card mb-3" style="max-width: 200px;">
                 <div class="row g-0">
@@ -53,39 +58,33 @@
                         <div class="card-header text-white bg-info">
                             <p class="card-text">
                                 <h5 class="card-title">
-                                    Por Año
+                                    Creado Por 
 
                                 </h5>
                             </p>
                         </div>
                     </div>
                     <div class="align-middle">
-                        <a class="dropdown-item" asp-controller="Usuarios" asp-action="Index">
-                            <img src="https://cdn.pixabay.com/photo/2014/04/03/11/56/avatar-312603_640.png" 100%" style="max-width: 150px">
-                        </a>
-                    </div>
-                </div>
+                            <form asp-controller="Filtros" asp-action="CreadoPor" method="post">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-            </div>
-        </div>
-        <!--nombre -->
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 200px;">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-white bg-info">
-                            <p class="card-text">
-                                <h5 class="card-title">
-                                    Por Nombre
+                                <div class="row">
+                                    <div class="col-md-6">
 
-                                </h5>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="align-middle">
-                        <a class="dropdown-item" asp-controller="Usuarios" asp-action="Index">
-                            <img src="https://cdn.pixabay.com/photo/2014/04/03/11/56/avatar-312603_640.png" 100%" style="max-width: 150px">
-                        </a>
+                                        <div class="form-group">
+                                            <label asp-for="opcion" class="control-label"></label>
+                                            <select asp-for="opcion" class="form-control" asp-items="ViewBag.Usuarios"></select>
+                                            <span asp-validation-for="opcion" class="text-danger"></span>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Buscar" class="btn btn-outline-success float-right" />
+                                </div>
+
+                            </form>
                     </div>
                 </div>
 

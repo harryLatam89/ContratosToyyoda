@@ -27,38 +27,40 @@ namespace ContratosToyyoda.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
-           
-            var nombresPaises = await _context.Paises.Select(p => p.pais).ToListAsync();
-            var paisesSelectList = nombresPaises.Select(p => new SelectListItem { Value = p, Text = p }).ToList();
+            var contratosMenus = await _serviceContratos.GetNuevoMenusValores();
+            var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.email });
+            ViewBag.Usuarios = usuariosSelectList;
+            var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
             ViewBag.Paises = paisesSelectList;
 
-            return View();
+              return View();
          
         }
-        
-        public async Task<IActionResult> PorPais(string paisSeleccionado)
-        {
-            paisSeleccionado = "El Salvador";
-            var allPaises = await _servicePaises.GetAllAsync();
+        [HttpPost]
+      
+        public async Task<IActionResult> PorPais([Bind("opcion")] FiltroVM dato)
 
-            int IdSelected=0 ; // Variable para almacenar la contraseña
+        {
             
-            foreach (var paisItem in allPaises)
-            {
-                Console.WriteLine("Id del del pais :" + IdSelected + "paisItem.pais  :" + paisItem.pais + "  paisesDropdown  :" + paisSeleccionado);
-                if (paisItem.pais == "El Salvador")
-                {
-                    
-                    IdSelected =paisItem.Id;
-                   
-                    break; // Se encontró el usuario, se sale del bucle
-                }
-            };
-          
             var contratos = await _context.Contratos
-    .Where(c => c.idPais == 1)
+    .Where(c => c.idPais.ToString() == dato.opcion)
     .ToListAsync();
 
+            //"~/Views/Contratos/Index.cshtml", contratos
+            return View("~/Views/Contratos/Index.cshtml", contratos);
+        }
+
+        [HttpPost]
+
+        public async Task<IActionResult> CreadoPor([Bind("opcion")] FiltroVM dato)
+
+        {
+            
+            var contratos = await _context.Contratos
+    .Where(c => c.idUser.ToString() == dato.opcion)
+    .ToListAsync();
+
+            //"~/Views/Contratos/Index.cshtml", contratos
             return View("~/Views/Contratos/Index.cshtml", contratos);
         }
     }
