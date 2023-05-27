@@ -6,7 +6,7 @@ namespace ContratosToyyoda.Data.ViewModels
     {
         [Display(Name = "EMAIL")]
         public string Email { get; set; }
-        [Display(Name = "CONTRASAÑA")]
+        [Display(Name = "CONTRASEÑA")]
         public string PassWord { get; set; }
         [Display(Name = "MANTENER LA SESION INICIADA")]
         public bool KeepLoggedIn { get; set; }

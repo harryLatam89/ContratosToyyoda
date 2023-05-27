@@ -1,100 +1,69 @@
-﻿@model FiltroVM
+﻿@model FiltroVM 
 @using ContratosToyyoda.Data.ViewModels;
 
 <div class="row">
-    <div class="col-md-8 offset-2">
-        <p>
-            <h4>Filtros</h4>
-        </p>
-        <div class="row">
-        <!--por pasis -->
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 200px;">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-white bg-info">
-                            <p class="card-text">
-                                <h5 class="card-title">
-                                    Por Pais
-
-                                </h5>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="align-middle">
-                           
-                                <form asp-controller="Filtros" asp-action="PorPais" method="post">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        
-                                        <div class="form-group">
-                                            <label asp-for="opcion" class="control-label"></label>
-                                            <select asp-for="opcion" class="form-control" asp-items="ViewBag.Paises"></select>
-                                            <span asp-validation-for="opcion" class="text-danger"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Buscar" class="btn btn-outline-success float-right" />
-                                </div>
-
-                            </form>
-                            
-                    </div>
-                </div>
-
-            </div>
+  <div class="col-md-8 offset-2">
+    <h4>Filtros</h4>
+    <div class="row">
+      <!-- Por país -->
+      <div class="col-md-4 col-xs-6 mb-3">
+        <div class="card" style="max-width: 300px">
+          <div class="card-header bg-info text-white">
+            <h5 class="card-title">Por País</h5>
+          </div>
+          <div class="card-body">
+            <form asp-controller="Filtros" asp-action="PorPais" method="post">
+              <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              <div class="form-group">
+                <label asp-for="opcion" class="control-label"></label>
+                <select
+                  asp-for="opcion"
+                  class="form-control form-select-lg"
+                  asp-items="ViewBag.Paises"
+                ></select>
+                <span asp-validation-for="opcion" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Buscar"
+                  class="btn btn-outline-success float-right"
+                />
+              </div>
+            </form>
+          </div>
         </div>
-       
-        <!--Creado por  -->
-        <div class="col-md-4 col-xs-6 border-primary mb-3">
-            <div class="card mb-3" style="max-width: 200px;">
-                <div class="row g-0">
-                    <div class="col-md-12">
-                        <div class="card-header text-white bg-info">
-                            <p class="card-text">
-                                <h5 class="card-title">
-                                    Creado Por 
+      </div>
 
-                                </h5>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="align-middle">
-                            <form asp-controller="Filtros" asp-action="CreadoPor" method="post">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-                                <div class="row">
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-                                            <label asp-for="opcion" class="control-label"></label>
-                                            <select asp-for="opcion" class="form-control" asp-items="ViewBag.Usuarios"></select>
-                                            <span asp-validation-for="opcion" class="text-danger"></span>
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Buscar" class="btn btn-outline-success float-right" />
-                                </div>
-
-                            </form>
-                    </div>
-                </div>
-
-            </div>
+      <!-- Creado por -->
+      <div class="col-md-4 col-xs-6 mb-3">
+        <div class="card" style="max-width: 300px">
+          <div class="card-header bg-info text-white">
+            <h5 class="card-title">Creado Por</h5>
+          </div>
+          <div class="card-body">
+            <form asp-controller="Filtros" asp-action="CreadoPor" method="post">
+              <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+              <div class="form-group">
+                <label asp-for="opcion" class="control-label"></label>
+                <select
+                  asp-for="opcion"
+                  class="form-control form-select-lg"
+                  asp-items="ViewBag.Usuarios"
+                ></select>
+                <span asp-validation-for="opcion" class="text-danger"></span>
+              </div>
+              <div class="form-group">
+                <input
+                  type="submit"
+                  value="Buscar"
+                  class="btn btn-outline-success float-right"
+                />
+              </div>
+            </form>
+          </div>
         </div>
-        </div>
+      </div>
     </div>
+  </div>
 </div>
-<script>
-    document.getElementById("paisesDropdown").addEventListener("change", function () {
-        document.getElementById("IdSelected").value = this.value;
-    });
-</script>

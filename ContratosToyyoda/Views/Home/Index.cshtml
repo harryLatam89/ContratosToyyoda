@@ -3,80 +3,68 @@
 }
 
 <div class="text-center">
-    <h1 class="display-4">Bienvenido</h1>
-    <div class="row">
-    <div class="col-md-4 col-xs-6 border-primary mb-3">
-        <div class="card mb-3" style="max-width: 200px;">
-            <div class="row g-0">
-                <div class="col-md-12">
-                    <div class="card-header text-white bg-info">
-                        <p class="card-text">
-                            <h5 class="card-title">
-                                Contratos
-
-                            </h5>
-                        </p>
-                    </div>
+    
+    <div class="row justify-content-center">
+        <!-- Contratos -->
+        <div class="col-md-4 col-xs-6 mb-3">
+            <div class="card" style="max-width: 300px">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title">Contratos</h5>
                 </div>
-                <div class="align-middle">
-                     <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index">
-                                <img src="https://cdn.pixabay.com/photo/2017/03/08/14/20/flat-2126884_640.png" 100%" style="max-width: 150px">
-                        </a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-        @if (User.IsInRole("admin")){  
-    <!--boton para usuarios-->
-    <div class="col-md-4 col-xs-6 border-primary mb-3">
-        <div class="card mb-3" style="max-width: 200px;">
-            <div class="row g-0">
-                <div class="col-md-12">
-                    <div class="card-header text-white bg-info">
-                        <p class="card-text">
-                            <h5 class="card-title">
-                                Usuarios
-
-                            </h5>
-                        </p>
-                    </div>
-                </div>
-                <div class="align-middle">
-                     <a class="dropdown-item" asp-controller="Usuarios" asp-action="Index">
-                    <img src="https://cdn.pixabay.com/photo/2014/04/03/11/56/avatar-312603_640.png" 100%" style="max-width: 150px">
-                        </a>
+                <div class="card-body">
+                    <a class="nav-link text-dark"
+                       asp-area=""
+                       asp-controller="Contratos"
+                       asp-action="Index">
+                        <img src="https://cdn.pixabay.com/photo/2017/03/08/14/20/flat-2126884_640.png"
+                             class="img-fluid"
+                             alt="Contratos"
+                             style="max-width: 150px" />
+                    </a>
                 </div>
             </div>
-
         </div>
-    </div>
+
+        @if (User.IsInRole("admin"))
+        {
+            <!-- Usuarios -->
+            <div class="col-md-4 col-xs-6 mb-3">
+                <div class="card" style="max-width: 300px">
+                    <div class="card-header bg-info text-white">
+                        <h5 class="card-title">Usuarios</h5>
+                    </div>
+                    <div class="card-body">
+                        <a class="nav-link text-dark"
+                       asp-controller="Usuarios"
+                       asp-action="Index">
+                            <img src="https://cdn.pixabay.com/photo/2014/04/03/11/56/avatar-312603_640.png"
+                                 class="img-fluid"
+                                 alt="Usuarios"
+                                 style="max-width: 150px" />
+                        </a>
+                    </div>
+                </div>
+            </div>
         }
-    <!--boton para Paises-->
-    <div class="col-md-4 col-xs-6 border-primary mb-3">
-        <div class="card mb-3" style="max-width: 200px;">
-            <div class="row g-0">
-                <div class="col-md-12">
-                    <div class="card-header text-white bg-info">
-                        <p class="card-text">
-                            <h5 class="card-title">
-                                Paises 
 
-                            </h5>
-                        </p>
-                    </div>
+        <!-- Paises -->
+        <div class="col-md-4 col-xs-6 mb-3">
+            <div class="card" style="max-width: 300px">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title">Países</h5>
                 </div>
-                <div class="align-middle">
-                        <a class="dropdown-item" asp-controller="Paises" asp-action="Index">
-                    <img src="https://media.istockphoto.com/id/1405046688/es/foto/globo-terr%C3%A1queo-f%C3%ADsico-am%C3%A9rica-del-norte-y-del-sur.jpg?s=612x612&w=is&k=20&c=62zc6HwATNRA1Hxtcv0VQw4ftwgIZ8QA5JVmJ9KepZw=" 100%" style="max-width: 150px">
-                        </a>
+                <div class="card-body">
+                    <a class="nav-link text-dark"
+                       asp-controller="Paises"
+                       asp-action="Index">
+                        <img src="https://media.istockphoto.com/id/1405046688/es/foto/globo-terr%C3%A1queo-f%C3%ADsico-am%C3%A9rica-del-norte-y-del-sur.jpg?s=612x612&w=is&k=20&c=62zc6HwATNRA1Hxtcv0VQw4ftwgIZ8QA5JVmJ9KepZw="
+                             class="img-fluid"
+                             alt="Países"
+                             style="max-width: 150px" />
+                    </a>
                 </div>
             </div>
-
         </div>
     </div>
-    </div>
-
-
-   
 </div>
+

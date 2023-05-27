@@ -46,7 +46,7 @@ namespace ContratosToyyoda.Controllers
                     break; // Se encontró el usuario, se sale del bucle
                 }
             }
-            Console.WriteLine("***************** estoy aca la contrasena es ");
+           
             if (  passwordDB == modelLogin.PassWord)
             {
                 List<Claim> claims = new List<Claim>() {
@@ -56,11 +56,11 @@ namespace ContratosToyyoda.Controllers
                     new Claim("OtherProperties","Example Role")
                 };
 
-                Console.WriteLine("***************** estoy aca la el roll es rolUsuario es " + rolUsuario);
+               
                 if (rolUsuario == "admin")
               {
                     claims.Add(new Claim(ClaimTypes.Role, "admin"));
-                    Console.WriteLine("***************** estoy aca agregadno rol admin" );
+                   
                 }
                else
                 {
