@@ -280,7 +280,8 @@ namespace ContratosToyyoda.Controllers
             // Obtener los datos del contrato desde la base de datos
             IActionResult resultado = await CrearPDF(id);
 
-            string rutaPdf = Path.Combine(_webHostEnvironment.WebRootPath +"/Contratos/", id + ".pdf");
+            //  string rutaPdf = Path.Combine(_webHostEnvironment.WebRootPath +"/Contratos/", id + ".pdf");
+            string rutaPdf = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Contratos/"+ id + ".pdf");
             if (resultado is ContentResult contentResult)
             {
                  rutaPdf = contentResult.Content;
@@ -301,13 +302,15 @@ namespace ContratosToyyoda.Controllers
             if (contratodetalles.tipoContrato == TipoContrato.temporal)
             {
 
-                filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
+                // filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
+                filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Temporal.docx");
             }
 
             else
             {
 
-                filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
+                // filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
+                filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Temporal.docx");
             }
 
     
@@ -354,11 +357,11 @@ namespace ContratosToyyoda.Controllers
             doc1.Save(rutaTemporal);
             string idstr = contratodetalles.Id.ToString();
             // Generar el archivo PDF a partir del documento Word modificado
-            string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", idstr + ".pdf");
-            Console.WriteLine(rutaPdf);
-
+            //  string rutaPdf = Path.Combine("C:/Development/ContratosToyyoda/ContratosToyyoda/wwwroot/Contratos/", idstr + ".pdf");
+            string rutaPdf = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Contratos/"+ idstr + ".pdf");
+ 
             // Load the word file to be converted to PDF
-            Document sampleDocx = new Document(rutaTemporal);
+             Document sampleDocx = new Document(rutaTemporal);
 
             // Instantiate the PdfSaveOptions class object before converting the Docx to PDF
             PdfSaveOptions options = new PdfSaveOptions();
@@ -423,7 +426,6 @@ namespace ContratosToyyoda.Controllers
         public async Task<IActionResult> Email(int id, string email, string asunto, string mensaje)
         {
             int IdContrato = id;
-            Console.WriteLine("*************** email es ****"+email);
             string rutaPDF="";
             IActionResult resultado = await CrearPDF(IdContrato);
                         if (resultado is ContentResult contentResult)
