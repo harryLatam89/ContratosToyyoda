@@ -111,7 +111,7 @@ namespace ContratosToyyoda.Data
                             tipoContrato=TipoContrato.permanente,
 
                             fechaIngreso=DateTime.Now.AddDays(-10),
-                            fechaEmision =DateTime.Now.AddDays(-10),
+                            fechaEmision =DateTime.Now.AddDays(-5),
                              idUser=1,
                              idPais=2
                          },
