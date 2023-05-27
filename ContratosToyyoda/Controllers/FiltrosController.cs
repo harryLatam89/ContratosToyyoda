@@ -46,6 +46,14 @@ namespace ContratosToyyoda.Controllers
     .Where(c => c.idPais.ToString() == dato.opcion)
     .ToListAsync();
 
+            var contratosMenus = await _serviceContratos.GetNuevoMenusValores();
+            ViewBag.Usuarios = new SelectList(contratosMenus.Usuarios, "id", "nombreUsuario");
+            ViewBag.Paises = new SelectList(contratosMenus.Paises, "id", "pais");
+            foreach (var item in ViewBag.Usuarios.Items)
+            {
+                Console.WriteLine($"nombre: {item.email}, apellido: {item.apellido}");
+            }
+
             //"~/Views/Contratos/Index.cshtml", contratos
             return View("~/Views/Contratos/Index.cshtml", contratos);
         }
@@ -59,6 +67,13 @@ namespace ContratosToyyoda.Controllers
             var contratos = await _context.Contratos
     .Where(c => c.idUser.ToString() == dato.opcion)
     .ToListAsync();
+            var contratosMenus = await _serviceContratos.GetNuevoMenusValores();
+            ViewBag.Usuarios = new SelectList(contratosMenus.Usuarios, "id", "nombreUsuario");
+            ViewBag.Paises = new SelectList(contratosMenus.Paises, "id", "pais");
+            foreach (var item in ViewBag.Usuarios.Items)
+            {
+                Console.WriteLine($"nombre: {item.email}, apellido: {item.apellido}");
+            }
 
             //"~/Views/Contratos/Index.cshtml", contratos
             return View("~/Views/Contratos/Index.cshtml", contratos);
