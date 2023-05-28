@@ -95,7 +95,7 @@ namespace ContratosToyyoda.Controllers
 
                 if (plantilla.tipoContrato == TipoContrato.temporal)
                 {
-                    filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
+                    filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Temporal.docx");
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         plantilla.fileInput.CopyTo(stream);
@@ -105,7 +105,7 @@ namespace ContratosToyyoda.Controllers
 
                 else
                 {
-                    filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
+                    filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Permanente.docx");
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         plantilla.fileInput.CopyTo(stream);
