@@ -1,23 +1,46 @@
-﻿@model string[]
-
-<h1>Archivos disponibles:</h1>
-
-@if (Model.Length > 0)
-{
-    <ul>
-        @foreach (string archivo in Model)
-        {
-            <li>@archivo</li>
-        }
-    </ul>
-}
-else
-{
-    <p>No hay archivos disponibles.</p>
+﻿
+@{
+    ViewData["Title"] = "Plantillas disponibles";
 }
 
-<div style="position: fixed; right: 25px; bottom: 75px;" class="row">
-    <div tyle=margin-right: 10px class="col-md-12 text-center">
-              <button type="button" class="btn btn-info"><a style=" color: black" asp-controller=Plantillas asp-action="Plantilla">Nueva Plantilla</a></button>
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h1>Archivos disponibles:</h1>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>Nombre de la plantilla</th>
+                           <th>Actions</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                        <tr>
+                            <td class="align-middle">
+                               Temporal
+                            </td>
+                            <td class="align-middle">
+                        <a class="btn btn-danger text-white" asp-action="DTemporal"><i class="bi bi-arrow-down-circle"></i>Descargar </a>
+                            </td>
+
+                        </tr>
+                <tr>
+                    <td class="align-middle">
+                        Permanente
+                    </td>
+                    <td class="align-middle">
+                        <a class="btn btn-danger text-white" asp-action="DPermanente"><i class="bi bi-arrow-down-circle"></i></i>Descargar </a>
+                    </td>
+
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
     </div>
 </div>
+
+
+

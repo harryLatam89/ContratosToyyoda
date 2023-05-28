@@ -21,6 +21,7 @@
   <ItemGroup>
     <Folder Include="wwwroot\Contratos\" />
     <Folder Include="wwwroot\Logo\" />
+    <Folder Include="wwwroot\PlantillaContratos\" />
     <Folder Include="wwwroot\Plantilla\" />
     <Folder Include="Migrations\" />
   </ItemGroup>

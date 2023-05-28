@@ -26,21 +26,64 @@ namespace ContratosToyyoda.Controllers
 
         public async Task<IActionResult> ListaPlantillas()
         {
-            string filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla");
-            string[] archivos = Directory.GetFiles(filePath);
-            string[] nombres = new string[archivos.Length];
-
-
-
-
-            for (int i = 0; i < archivos.Length; i++)
-            {
-                nombres[i] = Path.GetFileName(archivos[i]);
-            }
-
-            return View(nombres);
+           
+            return View();
         }
 
+        public IActionResult DPermanente()
+        {
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Permanente.docx");
+            string nombreArchivo = "plantillaPermante.docx";
+            string tipoContenido = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+            if (System.IO.File.Exists(filePath))
+            {
+                return File(System.IO.File.ReadAllBytes(filePath), tipoContenido, nombreArchivo);
+            }
+            else
+            {
+                // Archivo no encontrado, puedes retornar una vista de error o realizar alguna otra acción.
+                return NotFound();
+            }
+
+            
+        }
+
+            public IActionResult DTemporal()
+        {
+                
+                string filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Temporal.docx");
+                string nombreArchivo = "plantillaTemporal.docx";
+            string tipoContenido = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+
+            if (System.IO.File.Exists(filePath))
+            {
+                return File(System.IO.File.ReadAllBytes(filePath), tipoContenido, nombreArchivo);
+            }
+            else
+            {
+                // Archivo no encontrado, puedes retornar una vista de error o realizar alguna otra acción.
+                return NotFound();
+            }
+            
+        }
+
+        public IActionResult DescargarCSV()
+        {
+            string filePath = Path.Combine(Directory.GetCurrentDirectory()+ "/wwwroot/PlantillaContratos/PlantillaContratos.csv");
+            string nombreArchivo = "PlantillaContratos.csv";
+            string tipoContenido = "text/csv";
+
+            if (System.IO.File.Exists(filePath))
+            {
+                return File(System.IO.File.ReadAllBytes(filePath), tipoContenido, nombreArchivo);
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
 
         [HttpPost]
         public async Task<IActionResult> Plantilla(PlantillaViewModel plantilla)
@@ -75,6 +118,9 @@ namespace ContratosToyyoda.Controllers
 
             return View("CargaExitosa");
         }
+
+
+
 
         public IActionResult Index()
         {
