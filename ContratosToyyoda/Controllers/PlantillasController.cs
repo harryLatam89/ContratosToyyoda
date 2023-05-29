@@ -71,7 +71,7 @@ namespace ContratosToyyoda.Controllers
 
         public IActionResult DescargarCSV()
         {
-            string filePath = Path.Combine(Directory.GetCurrentDirectory()+ "/wwwroot/PlantillaContratos/PlantillaContratos.csv");
+            string filePath = Path.Combine(Directory.GetCurrentDirectory()+ "/wwwroot/PlantillaContratos/contratos.csv");
             string nombreArchivo = "PlantillaContratos.csv";
             string tipoContenido = "text/csv";
 
