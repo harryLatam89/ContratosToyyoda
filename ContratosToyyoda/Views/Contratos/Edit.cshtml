@@ -34,6 +34,16 @@
                                 <span asp-validation-for="email" class="text-danger"></span>
                             </div>
                             <div class="form-group">
+                                <label asp-for="cargo" class="control-label"></label>
+                                <input asp-for="cargo" class="form-control" />
+                                <span asp-validation-for="cargo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="fechaNacimiento" class="control-label"></label>
+                                <input asp-for="fechaNacimiento" type="date" class="form-control" />
+                                <span asp-validation-for="fechaNacimiento" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
                                 <label asp-for="tipoContrato" class="control-label"></label>
                                 <select asp-for="tipoContrato" class="form-control" asp-items="Html.GetEnumSelectList<TipoContrato>()"></select>
                                 <span asp-validation-for="tipoContrato" class="text-danger"></span>
@@ -65,6 +75,41 @@
                                 <label asp-for="idPais" class="control-label"></label>
                                 <select asp-for="idPais" class="form-control" asp-items="ViewBag.Paises"></select>
                                 <span asp-validation-for="idPais" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="sexo" class="control-label"></label>
+                                <select asp-for="sexo" class="form-control" asp-items="Html.GetEnumSelectList<Sexo>()"></select>
+                                <span asp-validation-for="sexo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="estadoFamiliar" class="control-label"></label>
+                                <select asp-for="estadoFamiliar" class="form-control" asp-items="Html.GetEnumSelectList<EstadoFamiliar>()"></select>
+                                <span asp-validation-for="estadoFamiliar" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="profesion" class="control-label"></label>
+                                <input asp-for="profesion" class="form-control" />
+                                <span asp-validation-for="profesion" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="domicilio" class="control-label"></label>
+                                <input asp-for="domicilio" class="form-control" />
+                                <span asp-validation-for="domicilio" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="nacionalidad" class="control-label"></label>
+                                <input asp-for="nacionalidad" class="form-control" />
+                                <span asp-validation-for="nacionalidad" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="TipoDoc" class="control-label"></label>
+                                <input asp-for="TipoDoc" class="form-control" />
+                                <span asp-validation-for="TipoDoc" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="numDocId" class="control-label"></label>
+                                <input asp-for="numDocId" class="form-control" />
+                                <span asp-validation-for="numDocId" class="text-danger"></span>
                             </div>
 
                         </div>

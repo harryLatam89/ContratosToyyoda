@@ -1,5 +1,6 @@
 ﻿using ContratosToyyoda.Data;
 using ContratosToyyoda.Data.Base;
+
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -46,6 +47,37 @@ namespace ContratosToyyoda.Models
         public int idPais { get; set; }
         [ForeignKey("idPais")]
         public Pais pais { get; set; }
+
+     /////////////////////////////////////////////////////   
+        [Display(Name = "SEXO")]
+        public Sexo sexo { get; set; }
+
+        [Display(Name = "ESTADO FAMILIAR")]
+        public EstadoFamiliar estadoFamiliar { get; set; }
+
+        [Display(Name = "PROFESION")]
+        public string profesion { get; set; }
+
+        [Display(Name = "Domicilio")]
+        public string domicilio { get; set; }
+
+        [Display(Name = "Nacionalidad")]
+        public string nacionalidad { get; set; }
+
+        [Display(Name = "tipo de Documento")]
+        public string TipoDoc { get; set; }
+
+
+        [Display(Name = "Numero Documento")]
+        public string numDocId { get; set; }
+
+        
+        [Display(Name = "Cargo")]
+        public string cargo { get; set; }
+
+       
+        [Display(Name = "Fecha de nacimiento")]
+        public DateTime fechaNacimiento { get; set; }
     }
     
 }

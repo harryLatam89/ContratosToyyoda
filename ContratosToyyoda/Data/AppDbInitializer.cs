@@ -62,8 +62,7 @@ namespace ContratosToyyoda.Data
                            pais ="El Salvador",
                            region ="Centro America",
                            direccion ="Av. Narciso Monterrey 14A, Zacatecoluca, La Paz, El salvador",
-
-                          logo ="https://cdn.pixabay.com/photo/2015/08/06/17/40/el-salvador-878218_640.png"
+                           logo ="https://cdn.pixabay.com/photo/2015/08/06/17/40/el-salvador-878218_640.png"
                        },
 
                     new Pais()
@@ -73,8 +72,7 @@ namespace ContratosToyyoda.Data
                            pais ="Guatemala",
                            region ="Centro America",
                           direccion ="Av. Las Americas, Quezaltenango, Guatemala",
-
-                          logo ="https://cdn.pixabay.com/photo/2015/08/05/07/49/guatemala-875735_640.png"
+                           logo ="https://cdn.pixabay.com/photo/2015/08/05/07/49/guatemala-875735_640.png"
                           },
 
                     new Pais()
@@ -83,7 +81,7 @@ namespace ContratosToyyoda.Data
                            pais ="Honduras",
                            region ="Centro America",
                            direccion ="Avenido Cervantes Number 1515, Tegucigalpa, Honduras",
-
+                           
                           logo ="https://cdn.pixabay.com/photo/2015/08/16/06/26/honduras-890666_640.png",
 
                         }
@@ -93,7 +91,7 @@ namespace ContratosToyyoda.Data
                   ////contratos
                    if (!context.Contratos.Any())
                    {
-                       context.Contratos.AddRange(new List<Contrato>()
+                    context.Contratos.AddRange(new List<Contrato>()
                        {
 
 
@@ -110,10 +108,21 @@ namespace ContratosToyyoda.Data
 
                             tipoContrato=TipoContrato.permanente,
 
+
+                            fechaNacimiento=DateTime.Now.AddYears(-25),
                             fechaIngreso=DateTime.Now.AddDays(-10),
                             fechaEmision =DateTime.Now.AddDays(-5),
                              idUser=1,
-                             idPais=2
+                             idPais=2,
+                                 sexo =Sexo.Femenino,
+                             estadoFamiliar=EstadoFamiliar.casado,
+                             profesion="abogado",
+                             domicilio="primer calle oriente numero #3",
+                             nacionalidad="TBD",
+                             TipoDoc="TBD",
+                             numDocId="1234587",
+                             cargo="Asitente"
+
                          },
 
                            new Contrato()
@@ -127,16 +136,22 @@ namespace ContratosToyyoda.Data
 
                             sueldo =360.0,
 
-                            tipoContrato=TipoContrato.permanente,
+                             tipoContrato=TipoContrato.permanente,
+                             fechaNacimiento=DateTime.Now.AddYears(-45),
 
-                            fechaIngreso=DateTime.Now.AddDays(-10),
+                             fechaIngreso=DateTime.Now.AddDays(-10),
                              fechaEmision =DateTime.Now.AddDays(-10),
 
                              idUser=1,
-                             idPais=2
-
-
-
+                             idPais=2,
+                             sexo =Sexo.Masculino,
+                             estadoFamiliar=EstadoFamiliar.divorciado,
+                             profesion="ingeniero",
+                             domicilio="primer calle oriente numero #3",
+                             nacionalidad="TBD",
+                             TipoDoc="TBD",
+                             numDocId="1234587",
+                             cargo="Soldador"
                          },
 
                            new Contrato()
@@ -154,13 +169,22 @@ namespace ContratosToyyoda.Data
 
                             fechaIngreso=DateTime.Now.AddDays(-10),
                              fechaEmision =DateTime.Now.AddDays(-10),
+                               fechaNacimiento=DateTime.Now.AddYears(-30),
 
                              idUser=1,
-                             idPais=3
+                             idPais=3,
+                                 sexo =Sexo.Masculino,
+                             estadoFamiliar=EstadoFamiliar.soltero,
+                             profesion="contador",
+                             domicilio="primer calle oriente numero #3",
+                             nacionalidad="TBD",
+                             TipoDoc="TBD",
+                             numDocId="1234587",
+                             cargo="Gerente"
                          }
-
-                        });
-                       context.SaveChanges();
+                    });
+                           
+                           context.SaveChanges();
 
                    }
 

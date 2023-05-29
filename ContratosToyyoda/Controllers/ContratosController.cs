@@ -97,6 +97,7 @@ namespace ContratosToyyoda.Controllers
             ViewBag.Usuarios = usuariosSelectList;
             var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
             ViewBag.Paises = paisesSelectList;
+    
 
             return View();
         }
@@ -113,9 +114,11 @@ namespace ContratosToyyoda.Controllers
                 var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
                 ViewBag.Paises = paisesSelectList;
                 return View(contrato);
+
             }
 
             await _service.AddNuevoContratoAsync(contrato);
+            
             return RedirectToAction(nameof(Index));
         }
 
@@ -141,6 +144,15 @@ namespace ContratosToyyoda.Controllers
                 email=contratodetalles.email,
                 fechaEmision = contratodetalles.fechaEmision,
                 fechaIngreso = contratodetalles.fechaIngreso,
+                sexo = contratodetalles.sexo,
+                estadoFamiliar = contratodetalles.estadoFamiliar,
+                profesion = contratodetalles.profesion,
+                domicilio = contratodetalles.domicilio,
+                nacionalidad = contratodetalles.nacionalidad,
+                TipoDoc = contratodetalles.TipoDoc,
+                numDocId = contratodetalles.numDocId,
+                fechaNacimiento=contratodetalles.fechaNacimiento,
+                cargo=contratodetalles.cargo
             };
 
             var contratosMenus = await _service.GetNuevoMenusValores();
@@ -153,7 +165,7 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, NuevoContratoVM contrato)
+        public async Task<IActionResult> Edit(int id,NuevoContratoVM contrato)
         {
             if (id != contrato.id) return View("NotFound");
 
@@ -197,69 +209,100 @@ namespace ContratosToyyoda.Controllers
                         if (values.Length >= 5) // Asegurar que haya suficientes campos en el registro
                         {
 
-                            string nombre = values[0];                                                      
+                            string nombre = values[0];
                             string apellido = values[1];
                             string email = values[2];
                             string sueldoStr = values[3];
-                            string tipoContratoStr = values[4]; 
+                            string tipoContratoStr = values[4];
                             string fechaIngresoStr = values[5];
                             string fechaEmisionStr = values[6];
                             string idPaisStr = values[7];
                             string idUserStr = values[8];
+                            string sexoStr = values[9];
+                            string estadoFamiliarStr = values[10];
+                            string profesionStr = values[11];
+                            string domicilioStr = values[12];
+                            string nacionalidadStr = values[13];
+                            string TipoDocStr = values[14];
+                            string numDocIdStr = values[15];
+                            string fechaNacimientoStr = values[16];
+                            string cargoStr = values[17];
 
-                            if (Enum.TryParse(tipoContratoStr, out TipoContrato tipoContrato)) {
-                              
-                                if (double.TryParse(sueldoStr, out double sueldo)) {
-                                 
+                            
 
-                                    if (int.TryParse(idPaisStr, out int idPais)) {
-                                  
-                                        if (int.TryParse(idUserStr, out int idUser)) {
-                                         
-                                            if (DateTime.TryParseExact(fechaEmisionStr, "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaEmision)) {
-                                               
-                                                if ( DateTime.TryParseExact(fechaIngresoStr, "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaIngreso))
+                                if (Enum.TryParse(tipoContratoStr, out TipoContrato tipoContrato)) {
 
-                                                   {
-                                                    // Crear un nuevo objeto y agregarlo a la lista
-                                                 
-                                                    var nuevoContrato = new NuevoContratoVM
+                                    if (double.TryParse(sueldoStr, out double sueldo)) {
+
+
+                                        if (int.TryParse(idPaisStr, out int idPais)) {
+
+                                            if (int.TryParse(idUserStr, out int idUser)) {
+
+                                                if (DateTime.TryParseExact(fechaEmisionStr, "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaEmision)) {
+
+                                                    if (DateTime.TryParseExact(fechaIngresoStr, "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaIngreso))
+
                                                     {
-                                                        nombre = nombre,
-                                                        apellido = apellido,
-                                                        email= email,
-                                                        tipoContrato = tipoContrato,
-                                                        sueldo = sueldo,
-                                                        idPais = idPais,
-                                                        idUser = idUser,
-                                                        fechaEmision = fechaEmision,
-                                                        fechaIngreso = fechaIngreso
-                                                    };
-                                                    await _service.AddNuevoContratoAsync(nuevoContrato);
+                                                    Console.WriteLine("**************llegamos hasta ants de los nuevos");
+                                                    if ((Enum.TryParse(sexoStr, out Sexo sexo))
+                                && (Enum.TryParse(estadoFamiliarStr, out EstadoFamiliar estadoFamiliar))
+                                 && (DateTime.TryParseExact(fechaNacimientoStr, "dd/MM/yy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaNacimiento)))
+                                                    {
+                                                        // Crear un nuevo objeto y agregarlo a la lista
+
+                                                        var nuevoContrato = new NuevoContratoVM
+                                                        {
+                                                            nombre = nombre,
+                                                            apellido = apellido,
+                                                            email = email,
+                                                            tipoContrato = tipoContrato,
+                                                            sueldo = sueldo,
+                                                            idPais = idPais,
+                                                            idUser = idUser,
+                                                            fechaEmision = fechaEmision,
+                                                            fechaIngreso = fechaIngreso,
+                                                            sexo= sexo,
+                                                            estadoFamiliar= estadoFamiliar,
+                                                            fechaNacimiento = fechaNacimiento,
+                                                            profesion= profesionStr,
+                                                            domicilio= domicilioStr,
+                                                            nacionalidad=nacionalidadStr,
+                                                            TipoDoc= TipoDocStr,
+                                                            numDocId= numDocIdStr,
+                                                            cargo= cargoStr
+                                                        };
+                                                        await _service.AddNuevoContratoAsync(nuevoContrato);
+                                                    }
+                                                    }
                                                 }
                                             }
                                         }
+
                                     }
+
 
                                 }
 
 
-                            }
+                                else
+                                {
+                                    Console.WriteLine("Manejar el caso cuando la conversión de datos falla para un registro");
+                                    // Manejar el caso cuando la conversión de datos falla para un registro
+                                    // Puedes agregar un registro de error, mostrar un mensaje de error, etc.
+                                }
 
-
-                            else
-                            {
-                                Console.WriteLine("Manejar el caso cuando la conversión de datos falla para un registro");
-                                // Manejar el caso cuando la conversión de datos falla para un registro
-                                // Puedes agregar un registro de error, mostrar un mensaje de error, etc.
-                            }
+                            
                         }
+
                         else
                         {
                             Console.WriteLine(" Manejar el caso cuando el registro no tiene suficientes campos");
                             // Manejar el caso cuando el registro no tiene suficientes campos
                             // Puedes agregar un registro de error, mostrar un mensaje de error, etc.
                         }
+                        
+                      
                     }
 
 
@@ -334,24 +377,42 @@ namespace ContratosToyyoda.Controllers
                     imagenShape.Width = 150;
                     imagenShape.Height = 150;
 
-                    imagenShape.Left = 300; // Posición horizontal de la imagen
-                    imagenShape.Top = 100; // Posición vertical de la imagen
+                    imagenShape.Left = 325; // Posición horizontal de la imagen
+                    imagenShape.Top = 20; // Posición vertical de la imagen
 
                     // Insertar la imagen en el documento
                     DocumentBuilder builder = new DocumentBuilder(doc1);
                     builder.InsertNode(imagenShape);
                 }
-            }   
+            }
+            //calculo edad 
+            DateTime fechaActual = DateTime.Now;
+            int edad = fechaActual.Year - contratodetalles.fechaNacimiento.Year;
+            if (fechaActual < contratodetalles.fechaNacimiento.AddYears(edad))
+            {
+                edad--;
+            }
             // Reemplazar los marcadores de posición en la plantilla con los datos del contrato
 
             doc1.Range.Replace("[nombre]", contratodetalles.nombre);
             doc1.Range.Replace("[apellido]", contratodetalles.apellido);
             doc1.Range.Replace("[tipoContrato]", contratodetalles.tipoContrato.ToString());
             doc1.Range.Replace("[sueldo]", contratodetalles.sueldo.ToString());
-            doc1.Range.Replace("[idPais]", contratodetalles.pais.pais.ToString());
+            doc1.Range.Replace("[idPais]", contratodetalles.pais.pais.ToString().ToUpper());
             doc1.Range.Replace("[idUser]", contratodetalles.usuario.nombre.ToString() + "   " + contratodetalles.usuario.apellido.ToString());
-            doc1.Range.Replace("[fechaEmision]", contratodetalles.fechaEmision.ToString("dd/MM/yyyy"));
-            doc1.Range.Replace("[fechaIngreso]", contratodetalles.fechaIngreso.ToString("dd/MM/yyyy"));
+            doc1.Range.Replace("[fechaEmision]", contratodetalles.fechaEmision.ToString("dd/MM/yy"));
+            doc1.Range.Replace("[fechaIngreso]", contratodetalles.fechaIngreso.ToString("dd/MM/yy"));
+            doc1.Range.Replace("[edad]", edad.ToString());
+            doc1.Range.Replace("[sexo]", contratodetalles.sexo.ToString());
+            doc1.Range.Replace("[estadoFamiliar]", contratodetalles.estadoFamiliar.ToString());
+            doc1.Range.Replace("[profesion]", contratodetalles.profesion);
+            doc1.Range.Replace("[domicilio]", contratodetalles.domicilio);
+            doc1.Range.Replace("[nacionalidad]", contratodetalles.nacionalidad);
+            doc1.Range.Replace("[TipoDoc]", contratodetalles.TipoDoc);
+            doc1.Range.Replace("[numDocId]", contratodetalles.numDocId);
+            doc1.Range.Replace("[cargo]", contratodetalles.cargo);
+            doc1.Range.Replace("[fechaActual]", fechaActual.ToString("dd/MM/yy"));
+
             // Guardar el documento modificado en una ubicación temporal
             string rutaTemporal = Path.Combine(Path.GetTempPath(), "contrato_temp.docx");
             doc1.Save(rutaTemporal);

@@ -42,7 +42,42 @@ namespace ContratosToyyoda.Models
         [Required(ErrorMessage = "pais es requerido")]
         [Display(Name = "PAIS SEDE")]
         public int idPais { get; set; }
-       
+
+        [Required(ErrorMessage = "una seleccion es requerida")]
+        [Display(Name = "SEXO")]
+        public Sexo sexo { get; set; }
+
+        [Required(ErrorMessage = "una seleccion es requerida")]
+        [Display(Name = "ESTADO FAMILIAR")]
+        public EstadoFamiliar estadoFamiliar { get; set; }
+        [Required(ErrorMessage = "una profecion es requerida")]
+        [Display(Name = "PROFESION")]
+
+        public string profesion { get; set; }
+        [Required(ErrorMessage = "direccion es requerida")]
+        [Display(Name = "Domicilio")]
+        public string domicilio { get; set; }
+
+        [Required(ErrorMessage = "nacionalidad es requerida")]
+        [Display(Name = "Nacionalidad")]
+        public string nacionalidad { get; set; }
+
+        [Required(ErrorMessage = "tipo de documento es requerido")]
+        [Display(Name = "Tipo de Documento")]
+        public string TipoDoc { get; set; }
+
+        [Required(ErrorMessage = "numero de  documento es requerido")]
+        [Display(Name = "Numero Documento")]
+        public string numDocId { get; set; }
+
+        [Required(ErrorMessage = "numero de  documento es requerido")]
+        [Display(Name = "Cargo")]
+        public string cargo { get; set; }
+
+        [Required(ErrorMessage = "fecha de emision es requerido")]
+
+        [Display(Name = "FECHA DE NACIMIENTO")]
+        public DateTime fechaNacimiento { get; set; }
     }
     
 }

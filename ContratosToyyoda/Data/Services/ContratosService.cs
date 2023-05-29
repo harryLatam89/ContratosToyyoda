@@ -25,8 +25,18 @@ namespace ContratosToyyoda.Data.Services
                 idUser = dato.idUser,
                 fechaIngreso = dato.fechaIngreso,
                 fechaEmision = dato.fechaEmision,
-                 email = dato.email
-        };
+                 email = dato.email,
+                sexo=dato.sexo,
+                estadoFamiliar=dato.estadoFamiliar,
+                profesion=dato.profesion,
+                domicilio= dato.domicilio,
+                nacionalidad= dato.nacionalidad,
+                TipoDoc= dato.TipoDoc,
+                numDocId= dato.numDocId,
+                cargo= dato.cargo,
+                fechaNacimiento=dato.fechaNacimiento
+
+            };
             await _context.Contratos.AddAsync(nuevoContrato);
             await _context.SaveChangesAsync();
             //agregar el 
@@ -50,14 +60,14 @@ namespace ContratosToyyoda.Data.Services
         }
 
         public async Task UpdateContratoAsync(NuevoContratoVM dato)
-        {
+        {           
             var dbContrato = await _context.Contratos.FirstOrDefaultAsync(n => n.Id == dato.id);
 
             if (dbContrato != null)
             {
 
                 dbContrato.nombre = dato.nombre;
-                    dbContrato.apellido = dato.apellido;
+                 dbContrato.apellido = dato.apellido;
                 dbContrato.tipoContrato = dato.tipoContrato;
                 dbContrato.sueldo = dato.sueldo;
                 dbContrato.idPais = dato.idPais;
@@ -65,7 +75,16 @@ namespace ContratosToyyoda.Data.Services
                 dbContrato.fechaIngreso = dato.fechaIngreso;
                 dbContrato.fechaEmision = dato.fechaEmision;
                 dbContrato.email=dato.email;
-                
+                dbContrato.sexo = dato.sexo;
+                dbContrato.estadoFamiliar = dato.estadoFamiliar;
+                dbContrato.profesion = dato.profesion;
+                dbContrato.domicilio = dato.domicilio;
+                dbContrato.nacionalidad = dato.nacionalidad;
+                dbContrato.TipoDoc = dato.TipoDoc;
+                dbContrato.numDocId = dato.numDocId;
+                dbContrato.cargo= dato.cargo;
+                dbContrato.fechaNacimiento = dato.fechaNacimiento;
+
                 await _context.SaveChangesAsync();
             };
                

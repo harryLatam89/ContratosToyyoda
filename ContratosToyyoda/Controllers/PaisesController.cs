@@ -39,7 +39,7 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([Bind("pais,region,direccion,logo")] Pais dato)
+        public async Task<IActionResult> Create([Bind("pais,region,direccion,logo,tipoDoc")] Pais dato)
         {
             if (!ModelState.IsValid)
             {
@@ -59,7 +59,7 @@ namespace ContratosToyyoda.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,pais,region,direccion,logo")] Pais dato)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,pais,region,direccion,logo,tipoDoc")] Pais dato)
         {
             if (!ModelState.IsValid) return View(dato);
 

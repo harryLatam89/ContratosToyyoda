@@ -4,6 +4,7 @@ using ContratosToyyoda.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContratosToyyoda.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230529015118_revision")]
+    partial class revision
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,10 +41,6 @@ namespace ContratosToyyoda.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("cargo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("domicilio")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -57,9 +56,6 @@ namespace ContratosToyyoda.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("fechaIngreso")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("fechaNacimiento")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("idPais")
