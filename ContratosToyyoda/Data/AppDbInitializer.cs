@@ -62,7 +62,7 @@ namespace ContratosToyyoda.Data
                            pais ="El Salvador",
                            region ="Centro America",
                            direccion ="Av. Narciso Monterrey 14A, Zacatecoluca, La Paz, El salvador",
-                           logo ="https://cdn.pixabay.com/photo/2015/08/06/17/40/el-salvador-878218_640.png"
+                           logo ="https://github.com/harryLatam89/img/blob/main/EL%20SALVADOR.png?raw=true"
                        },
 
                     new Pais()
@@ -72,7 +72,7 @@ namespace ContratosToyyoda.Data
                            pais ="Guatemala",
                            region ="Centro America",
                           direccion ="Av. Las Americas, Quezaltenango, Guatemala",
-                           logo ="https://cdn.pixabay.com/photo/2015/08/05/07/49/guatemala-875735_640.png"
+                           logo ="https://github.com/harryLatam89/img/blob/main/GUATEMALA.png?raw=true"
                           },
 
                     new Pais()
@@ -82,7 +82,7 @@ namespace ContratosToyyoda.Data
                            region ="Centro America",
                            direccion ="Avenido Cervantes Number 1515, Tegucigalpa, Honduras",
                            
-                          logo ="https://cdn.pixabay.com/photo/2015/08/16/06/26/honduras-890666_640.png",
+                          logo ="https://github.com/harryLatam89/img/blob/main/HONDURAS.png?raw=true",
 
                         }
                     });
