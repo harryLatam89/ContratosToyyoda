@@ -25,5 +25,7 @@ namespace ContratosToyyoda.Data
   
         public DbSet<Usuario> Usuarios { get; set; }
 
+        public DbSet<Apoderado> Apoderados { get; set; }
+
     }
 }

@@ -34,6 +34,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUsuariosService, UsuariosService>();
 builder.Services.AddScoped<IPaisesService, PaisesService>();
 builder.Services.AddScoped<IContratosService, ContratosService>();
+builder.Services.AddScoped<IApoderadosService, ApoderadosService>();
 builder.Services.AddScoped<HelperMail>();
 
 var app = builder.Build();

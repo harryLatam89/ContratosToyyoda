@@ -8,14 +8,14 @@
 <div class="row">
     <div class="col-md-8 offset-md-2">
 
-        <table class="table">
+        <table class="table" style="color: white;>
             <thead>
                 <tr class="text-center">
                     <th>@Html.DisplayNameFor(model => model.Id)</th>
                     <th>@Html.DisplayNameFor(model => model.pais)</th>
                     <th>@Html.DisplayNameFor(model => model.region)</th>
                     <th>@Html.DisplayNameFor(model => model.direccion)</th>
-                   
+                    <th>@Html.DisplayNameFor(model => model.apoderado)</th>
                     <th>@Html.DisplayNameFor(model => model.logo)</th>
                         <th>Actions</th>
                    
@@ -37,7 +37,9 @@
                         <td class="align-middle">
                             @Html.DisplayFor(modelItem => item.direccion)
                         </td>
-        
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.apoderado.email)
+                        </td>
                     <td class="align-middle">
                             <img class="rounded-circle" src="@item.logo" style="max-width: 150px" />
                        

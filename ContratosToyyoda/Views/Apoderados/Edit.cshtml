@@ -1,14 +1,14 @@
-﻿@model NuevoContratoVM
+﻿@model Apoderado
 @using ContratosToyyoda.Data;
 
 @{
-    ViewData["Title"] = "Modificar  Contrato";
+    ViewData["Title"] = "Modificar  Apoderado";
 }
 
 <div class="row" style="color: white;">
     <div class="col-md-8 offset-2">
         <p>
-            <h4>Modificar contrato</h4>
+            <h4>Modificar Apoderado</h4>
         </p>
 
         <div class="row">
@@ -33,48 +33,11 @@
                                 <input asp-for="email" class="form-control" />
                                 <span asp-validation-for="email" class="text-danger"></span>
                             </div>
-                            <div class="form-group">
-                                <label asp-for="cargo" class="control-label"></label>
-                                <input asp-for="cargo" class="form-control" />
-                                <span asp-validation-for="cargo" class="text-danger"></span>
-                            </div>
+ 
                             <div class="form-group">
                                 <label asp-for="fechaNacimiento" class="control-label"></label>
                                 <input asp-for="fechaNacimiento" type="date" class="form-control" />
                                 <span asp-validation-for="fechaNacimiento" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="tipoContrato" class="control-label"></label>
-                                <select asp-for="tipoContrato" class="form-control" asp-items="Html.GetEnumSelectList<TipoContrato>()"></select>
-                                <span asp-validation-for="tipoContrato" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="fechaIngreso" class="control-label"></label>
-                                <input asp-for="fechaIngreso" type="date" class="form-control" />
-                                <span asp-validation-for="fechaIngreso" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="fechaEmision" class="control-label"></label>
-                                <input asp-for="fechaEmision" type="date" class="form-control" />
-                                <span asp-validation-for="fechaEmision" class="text-danger"></span>
-                            </div>
-                            <div class="form-group">
-                                <label asp-for="sueldo" class="control-label"></label>
-                                <input asp-for="sueldo" type="number" class="form-control" />
-                                <span asp-validation-for="sueldo" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label asp-for="idUser" class="control-label"></label>
-                                 <select asp-for="idUser" class="form-control" asp-items="ViewBag.Usuarios"></select>
-                                <span asp-validation-for="idUser" class="text-danger"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label asp-for="idPais" class="control-label"></label>
-                                <select asp-for="idPais" class="form-control" asp-items="ViewBag.Paises"></select>
-                                <span asp-validation-for="idPais" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <label asp-for="sexo" class="control-label"></label>
@@ -86,6 +49,12 @@
                                 <select asp-for="estadoFamiliar" class="form-control" asp-items="Html.GetEnumSelectList<EstadoFamiliar>()"></select>
                                 <span asp-validation-for="estadoFamiliar" class="text-danger"></span>
                             </div>
+                       
+             
+                        </div>
+                        <div class="col-md-6">
+                            
+                            
                             <div class="form-group">
                                 <label asp-for="profesion" class="control-label"></label>
                                 <input asp-for="profesion" class="form-control" />

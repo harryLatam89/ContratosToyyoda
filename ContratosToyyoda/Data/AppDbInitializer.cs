@@ -49,7 +49,33 @@ namespace ContratosToyyoda.Data
                     context.SaveChanges();
 
                 }
-           
+
+                if (!context.Apoderados.Any())
+                {
+                    context.Apoderados.AddRange(new List<Apoderado>()
+                    {
+                        new Apoderado()
+                        {
+
+                      nombre= "Otoniel",
+                      apellido ="Ramirez",
+                      email="Otoniel.Ramirez@toyyoda.com",
+                      sexo =Sexo.Masculino,
+                      estadoFamiliar=EstadoFamiliar.soltero,
+                      profesion="Abogado",
+                      domicilio= "San Salvador soyapango ",
+                      nacionalidad= "Salvadoreño",
+                      TipoDoc="DUI",
+                      numDocId="1254685866",
+                      fechaNacimiento=DateTime.Now.AddYears(-25)
+
+    },
+                    
+                    });
+                    context.SaveChanges();
+
+                }
+
                 if (!context.Paises.Any())
                 {
                     context.Paises.AddRange(new List<Pais>()
@@ -62,6 +88,7 @@ namespace ContratosToyyoda.Data
                            pais ="El Salvador",
                            region ="Centro America",
                            direccion ="Av. Narciso Monterrey 14A, Zacatecoluca, La Paz, El salvador",
+                           idApoderado=1,
                            logo ="https://github.com/harryLatam89/img/blob/main/EL%20SALVADOR.png?raw=true"
                        },
 
@@ -72,6 +99,7 @@ namespace ContratosToyyoda.Data
                            pais ="Guatemala",
                            region ="Centro America",
                           direccion ="Av. Las Americas, Quezaltenango, Guatemala",
+                          idApoderado=1,
                            logo ="https://github.com/harryLatam89/img/blob/main/GUATEMALA.png?raw=true"
                           },
 
@@ -80,6 +108,7 @@ namespace ContratosToyyoda.Data
                            
                            pais ="Honduras",
                            region ="Centro America",
+                           idApoderado=1,
                            direccion ="Avenido Cervantes Number 1515, Tegucigalpa, Honduras",
                            
                           logo ="https://github.com/harryLatam89/img/blob/main/HONDURAS.png?raw=true",

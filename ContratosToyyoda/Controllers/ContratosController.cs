@@ -35,16 +35,19 @@ namespace ContratosToyyoda.Controllers
  
     public class ContratosController : Controller
     {
+        private readonly IApoderadosService _serviceApoderadosService;
         private readonly IContratosService _service;
         private readonly IWebHostEnvironment _webHostEnvironment;
         private readonly IPaisesService _paisesService;
         private HelperMail helpermail;
-    
-        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail, IPaisesService paisesService)
+       
+
+        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail, IPaisesService paisesService, IApoderadosService serviceApoderadosService)
         {
             _service = service;
             _webHostEnvironment = webHostEnvironment;
             _paisesService = paisesService;
+            _serviceApoderadosService = serviceApoderadosService;
             this.helpermail = helpermail;
 
         }
@@ -54,11 +57,7 @@ namespace ContratosToyyoda.Controllers
             var contratosMenus = await _service.GetNuevoMenusValores();
             ViewBag.Usuarios = new SelectList(contratosMenus.Usuarios, "id", "nombreUsuario");
             ViewBag.Paises = new SelectList(contratosMenus.Paises, "id", "pais");
-            foreach (var item in ViewBag.Usuarios.Items)
-            {
-                Console.WriteLine($"nombre: {item.email}, apellido: {item.apellido}");
-            }
-            Console.WriteLine($"nombre: {ViewBag.Usuarios.Items}");
+  
             return View(allContratos);
         }
 
@@ -345,15 +344,15 @@ namespace ContratosToyyoda.Controllers
             if (contratodetalles.tipoContrato == TipoContrato.temporal)
             {
 
-                // filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Temporal.docx");
+                
                 filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Temporal.docx");
             }
 
             else
             {
 
-                // filePath = Path.Combine(_webHostEnvironment.WebRootPath + "/Plantilla/Permanente.docx");
-                filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Temporal.docx");
+               
+                filePath = Path.Combine(Directory.GetCurrentDirectory() + "/wwwroot/Plantilla/Permanente.docx");
             }
 
     
@@ -385,14 +384,33 @@ namespace ContratosToyyoda.Controllers
                     builder.InsertNode(imagenShape);
                 }
             }
+            //obtenemos el apoderado 
+            var apoderadardo = await _serviceApoderadosService.GetByIdAsync(detallepais.idApoderado);
+
             //calculo edad 
             DateTime fechaActual = DateTime.Now;
             int edad = fechaActual.Year - contratodetalles.fechaNacimiento.Year;
+            int edadA= fechaActual.Year - apoderadardo.fechaNacimiento.Year;
             if (fechaActual < contratodetalles.fechaNacimiento.AddYears(edad))
             {
                 edad--;
             }
+            if (fechaActual < apoderadardo.fechaNacimiento.AddYears(edad))
+            {
+                edadA--;
+            }
+
             // Reemplazar los marcadores de posición en la plantilla con los datos del contrato
+            doc1.Range.Replace("[nombreA]", apoderadardo.nombre);
+            doc1.Range.Replace("[apellidoA]", apoderadardo.apellido);
+            doc1.Range.Replace("[edadA]", edadA.ToString());
+            doc1.Range.Replace("[sexoA]", apoderadardo.sexo.ToString());
+            doc1.Range.Replace("[estadoFamiliarA]", apoderadardo.estadoFamiliar.ToString());
+            doc1.Range.Replace("[profesionA]", apoderadardo.profesion);
+            doc1.Range.Replace("[domicilioA]", apoderadardo.domicilio);
+            doc1.Range.Replace("[nacionalidadA]", apoderadardo.nacionalidad);
+            doc1.Range.Replace("[TipoDocA]", apoderadardo.TipoDoc);
+            doc1.Range.Replace("[numDocIdA]", apoderadardo.numDocId);
 
             doc1.Range.Replace("[nombre]", contratodetalles.nombre);
             doc1.Range.Replace("[apellido]", contratodetalles.apellido);

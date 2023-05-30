@@ -12,14 +12,33 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ContratosToyyoda.styles.css" asp-append-version="true" />
-
+    <link rel="stylesheet" href="~/js/site.js" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
+     <style>
+    /* Estilos personalizados */
+        #customNav {
+            background-color: #702CF5; /* Morado oscuro */
+        }
+
+            #customNav .navbar-nav .nav-link {
+                color: #fff; /* Texto blanco */
+            }
+
+                #customNav .navbar-nav .nav-link:hover,
+                #customNav .navbar-nav .nav-link:focus {
+                    color: #fff; /* Texto blanco en estado hover o focus */
+                }
+
+                #customNav .navbar-nav .nav-link .bi {
+                    color: #fff; /* Iconos blancos */
+                }
+    </style>
 </head>
-<body>
+<body data-bs-theme="ligth" style="background-color: #212529;">
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav id="customNav" class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light  border-bottom box-shadow mb-3">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="https://raw.githubusercontent.com/harryLatam89/img/main/toyyodalogo.jpg" alt="Logo de ContratosToyyoda" style="max-width: 75px;" />
@@ -31,7 +50,7 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Contratos" asp-action="Index"><i class="bi bi-file-earmark"></i> Contratos</a>
+                            <a class="nav-link" asp-area="" asp-controller="Contratos" asp-action="Index"><i class="bi bi-file-earmark"></i> Contratos</a>
 
                         </li>
                             @if (User.IsInRole("admin"))
@@ -44,9 +63,18 @@
                                     <a class="dropdown-item" asp-controller="Contratos" asp-action="Index"><i class="bi bi-file-earmark"></i> Contratos</a>
                                     <a class="dropdown-item" asp-controller="Paises" asp-action="Index"><i class="bi bi-map"></i>Paises</a>
                                     <a class="dropdown-item" asp-controller="Usuarios" asp-action="Index"><i class="bi bi-person-square"></i> Usuarios</a>
+                                    <a class="dropdown-item" asp-controller="Apoderados" asp-action="Index"> <i class="bi bi-archive-fill"></i>Apoderados</a>
                                 </div>
+                                
                             </li>
                         }
+                        <li class="nav-item">
+                      
+
+                            <button class="btn rounded-fill" onclick="window.open('https://github.com/harryLatam89/ContratosToyyoda', '_blank')" style="color: white;"><i class="bi bi-github"></i></button>
+
+                        </li>
+
                     </ul>
                     <a id="filtro-btn" class="btn btn-primary" asp-controller="Filtros" asp-action="Index">Agregar filtro</a>
             <!--
@@ -58,14 +86,14 @@
           
                     @if (!string.IsNullOrEmpty(userName))
                     {
-                        <div class="text-center">
-                            <h4>Bienvenido, <span class="text-primary"> @userName  !!!</span>!</h4>
+                        <div class="navbar-nav">
+                            <h4 style="color: white;">Bienvenido, <span> @userName  !!!</span>!</h4>
                         </div>
 
                     }
 
                     <form asp-controller="Home" asp-action="LogOut">
-                        <button class="btn btn-outline-danger my-2 my-sm-0">
+                        <button style="color: white;" class="btn btn-outline-danger my-2 my-sm-0">
                             <i class="bi bi-box-arrow-in-right"></i>Filanizar Sesion
                         </button>
                     </form>

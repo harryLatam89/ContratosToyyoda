@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Apoderado>
+
+@{
+    ViewData["Title"] = "Lista de Apoderados";
+}
+
+<div class="row" style="color: white;">
+    <div class="col-md-8 offset-md-2">
+        <h1 style="text-align: center;">Lista Apoderados</h1>
+        <table class="table" style="color: white;">
+            <thead>
+                <tr class="text-center">
+                   
+                    <th>@Html.DisplayNameFor(model => model.nombre)</th>
+                    <th>@Html.DisplayNameFor(model => model.apellido)</th>
+                    <th>@Html.DisplayNameFor(model => model.email)</th>
+                    <th>@Html.DisplayNameFor(model => model.nacionalidad)</th>
+                    <th>@Html.DisplayNameFor(model => model.domicilio)</th>
+                    <th>@Html.DisplayNameFor(model => model.profesion)</th>
+                    <th>@Html.DisplayNameFor(model => model.fechaNacimiento)</th>
+                    <th>Acciones</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.nombre)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.apellido)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.email)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.nacionalidad)
+                        </td>
+                        <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.domicilio)
+                        </td>
+                       <td class="align-middle">
+                            @Html.DisplayFor(modelItem => item.profesion)
+                            </td>
+                        <td class="align-middle">
+                            @item.fechaNacimiento.ToString("dd MMM yy")
+                        </td>              
+     
+                            <td class="align-middle">
+                                <a class="btn btn-outline-primary" asp-controller="Apoderados" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Editar </a> |
+                            <a class="btn btn-outline-info" asp-controller="Apoderados" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Detalles </a> |
+                            <a class="btn btn-danger text-white" asp-controller="Apoderados" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Borrar </a>
+                        </td>
+                        
+
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+
+
+    </div>
+</div>
+<div style="position: fixed; right: 25px; bottom: 75px;" class="Colum">
+    <div style="display: flex; flex-direction: column; align-items: flex-end;">
+        <a id="filtro-btn" class="btn btn-primary" asp-controller="Apoderados" asp-action="Create">Agregar Nuevo</a>
+    </div>
+</div>

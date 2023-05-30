@@ -1,13 +1,12 @@
 ﻿@using ContratosToyyoda.Data;
-@using ContratosToyyoda.Data.ViewModels;
 @using System.IO;
-@model Pais
+@model PaisVM
 
 @{
     ViewData["Title"] = "Agregar nuevo pais";
 }
 
-<div class="row text">
+<div class="row text" style="color: white;>
     <div class="col-md-8 offset-2">
         <p>
             <h1>Agregar nuevo pais</h1>
@@ -39,6 +38,11 @@
                         <label asp-for="direccion" class="control-label"></label>
                         <input asp-for="direccion" class="form-control" />
                         <span asp-validation-for="direccion" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="idApoderado" class="control-label"></label>
+                        <select asp-for="idApoderado" class="form-control" asp-items="ViewBag.Apoderados"></select>
+                        <span asp-validation-for="idApoderado" class="text-danger"></span>
                     </div>
 
                     <div class="form-group">

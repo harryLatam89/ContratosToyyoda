@@ -6,25 +6,32 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContratosToyyoda.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Paises",
+                name: "Apoderados",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    pais = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    region = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    logo = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    sexo = table.Column<int>(type: "int", nullable: false),
+                    estadoFamiliar = table.Column<int>(type: "int", nullable: false),
+                    profesion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    domicilio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nacionalidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoDoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    numDocId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    fechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Paises", x => x.Id);
+                    table.PrimaryKey("PK_Apoderados", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -45,6 +52,29 @@ namespace ContratosToyyoda.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Paises",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    pais = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    region = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    direccion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    logo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    idApoderado = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Paises", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Paises_Apoderados_idApoderado",
+                        column: x => x.idApoderado,
+                        principalTable: "Apoderados",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Contratos",
                 columns: table => new
                 {
@@ -58,7 +88,16 @@ namespace ContratosToyyoda.Migrations
                     fechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
                     email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     idUser = table.Column<int>(type: "int", nullable: false),
-                    idPais = table.Column<int>(type: "int", nullable: false)
+                    idPais = table.Column<int>(type: "int", nullable: false),
+                    sexo = table.Column<int>(type: "int", nullable: false),
+                    estadoFamiliar = table.Column<int>(type: "int", nullable: false),
+                    profesion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    domicilio = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    nacionalidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoDoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    numDocId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    cargo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    fechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -86,6 +125,11 @@ namespace ContratosToyyoda.Migrations
                 name: "IX_Contratos_idUser",
                 table: "Contratos",
                 column: "idUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Paises_idApoderado",
+                table: "Paises",
+                column: "idApoderado");
         }
 
         /// <inheritdoc />
@@ -99,6 +143,9 @@ namespace ContratosToyyoda.Migrations
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
+
+            migrationBuilder.DropTable(
+                name: "Apoderados");
         }
     }
 }

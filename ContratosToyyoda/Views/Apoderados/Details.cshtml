@@ -1,10 +1,10 @@
-﻿@model Contrato
+﻿@model Apoderado
 
 @{
-    ViewData["Title"] = "Detalles de contrato";
+    ViewData["Title"] = "Detalles del Apoderado";
 }
 
-<div class="row" style="color: white;">
+<div class="row" >
     <div class="col-md-8 offset-2">
         <div class="card mb-12">
             <div class="row g-0">
@@ -17,11 +17,6 @@
                         </p>
                     </div>
                 </div>
-
-                    <div class="col-md-4">
-                                    <img src="@Model.pais.logo" width="100%" >
-                    </div>
-
                 
                  
                 <div class="col-md-8">
@@ -30,40 +25,24 @@
                         <p class="card-text"><b>Nombre: </b>@Model.nombre</p>
                         <p class="card-text"><b>Apellido: </b>@Model.apellido</p>
                         <p class="card-text"><b>Email: </b>@Model.email</p>
-                        <p class="card-text"><b>Tipo de contrato: </b>@Model.fechaNacimiento.ToString("dd MMM yy")</p>
-                        <p class="card-text"><b>Tipo de contrato: </b>@Model.cargo</p>
-                        <p class="card-text"><b>Tipo de contrato: </b>@Model.tipoContrato</p>
-                        <p class="card-text"><b>fecha de ingreso: </b>@Model.fechaIngreso.ToString("dd MMM yy")</p>
-                        <p class="card-text"><b>Tipo de contrato: </b>@Model.fechaEmision.ToString("dd MMM yy")</p>
+                        <p class="card-text"><b>Fecha de nacimiento: </b>@Model.fechaNacimiento.ToString("dd MMM yy")</p>
                         <p class="card-text"><b>sexo: </b>@Model.sexo</p>
+                        <p class="card-text"><b>Estado Familiar: </b>@Model.estadoFamiliar</p>
+                        <p class="card-text"><b>Profesion: </b>@Model.profesion</p>
+                        <p class="card-text"><b>Domicilio: </b>@Model.domicilio</p>
+                        <p class="card-text"><b>Sexo: </b>@Model.sexo</p>
                         <p class="card-text"><b>Estado Familiar: </b>@Model.estadoFamiliar</p>
                         <p class="card-text"><b>Profesion: </b>@Model.profesion</p>
                         <p class="card-text"><b>Domicilio: </b>@Model.domicilio</p>
                         <p class="card-text"><b>Nacionalidad: </b>@Model.nacionalidad</p>
                         <p class="card-text"><b>Tipo de documento: </b>@Model.TipoDoc</p>
                         <p class="card-text"><b>Numero de Docuemtno de identidad: </b>@Model.numDocId</p>
-
-                        <p class="card-text">
-                            <b>Creado por: </b>
-                            <a asp-controller="Usuarios" asp-action="Details" asp-route-id="@Model.idUser">
-                                @Model.usuario.nombre  @Model.usuario.apellido
-                            </a>
-                        </p>
-                        <p class="card-text">
-                            <b>Pais: </b>
-                            <a asp-controller="Paises" asp-action="Details" asp-route-id="@Model.idPais">
-                                @Model.pais.pais
-                            </a>
-                        </p>   
-
                     </div>
                 </div>
                 <div class="col-md-12">
                     <div class="card-footer">
                         <p class="card-text">
                             <a class="btn btn-outline-primary float-right" asp-action="Index">Regresar a lista </a>
-                            <a class="btn btn-success text-white "  asp-action="Email" asp-route-id="@Model.Id"><i class="bi bi-email"></i> Enviar por email </a>
-                            <a class="btn btn-success text-white "  asp-action="Imprimir" asp-route-id="@Model.Id"><i class="bi bi-print"></i> Imprimir </a>
                         </p>
                     </div>
                 </div>

@@ -1,13 +1,11 @@
-﻿using ContratosToyyoda.Data.Base;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace ContratosToyyoda.Models
+namespace ContratosToyyoda.Data
 {
-    public class Pais: IEntityBase
+    public class PaisVM
     {
-        [Key]
-        public int Id { get; set; }
+  
+        public int id { get; set; }
 
         [Display(Name = "PAIS")]
         [Required(ErrorMessage = "nombre de pais es obligatorio")]
@@ -30,8 +28,5 @@ namespace ContratosToyyoda.Models
         // con APODERADO
         [Display(Name = "APODERADO")]
         public int idApoderado { get; set; }
-        [ForeignKey("idApoderado")]
-        public Apoderado apoderado { get; set; }
-
     }
 }

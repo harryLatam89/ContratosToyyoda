@@ -22,6 +22,60 @@ namespace ContratosToyyoda.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("ContratosToyyoda.Models.Apoderado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("TipoDoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("domicilio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("estadoFamiliar")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("fechaNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("nacionalidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("numDocId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("profesion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("sexo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Apoderados");
+                });
+
             modelBuilder.Entity("ContratosToyyoda.Models.Contrato", b =>
                 {
                     b.Property<int>("Id")
@@ -114,6 +168,9 @@ namespace ContratosToyyoda.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("idApoderado")
+                        .HasColumnType("int");
+
                     b.Property<string>("logo")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -127,6 +184,8 @@ namespace ContratosToyyoda.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("idApoderado");
 
                     b.ToTable("Paises");
                 });
@@ -181,6 +240,17 @@ namespace ContratosToyyoda.Migrations
                     b.Navigation("pais");
 
                     b.Navigation("usuario");
+                });
+
+            modelBuilder.Entity("ContratosToyyoda.Models.Pais", b =>
+                {
+                    b.HasOne("ContratosToyyoda.Models.Apoderado", "apoderado")
+                        .WithMany()
+                        .HasForeignKey("idApoderado")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("apoderado");
                 });
 #pragma warning restore 612, 618
         }
