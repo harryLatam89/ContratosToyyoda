@@ -1,4 +1,5 @@
-﻿using ContratosToyyoda.Data.Base;
+﻿using Azure.Core;
+using ContratosToyyoda.Data.Base;
 using ContratosToyyoda.Data.ViewModels;
 using ContratosToyyoda.Models;
 using Microsoft.EntityFrameworkCore;
@@ -34,12 +35,14 @@ namespace ContratosToyyoda.Data.Services
                 TipoDoc= dato.TipoDoc,
                 numDocId= dato.numDocId,
                 cargo= dato.cargo,
-                fechaNacimiento=dato.fechaNacimiento
-
+                fechaNacimiento=dato.fechaNacimiento,
+                
             };
             await _context.Contratos.AddAsync(nuevoContrato);
             await _context.SaveChangesAsync();
-            //agregar el 
+     
+
+
         }
 
         public async Task<Contrato> GetContratoByIdAsync(int id)
@@ -67,7 +70,7 @@ namespace ContratosToyyoda.Data.Services
             {
 
                 dbContrato.nombre = dato.nombre;
-                 dbContrato.apellido = dato.apellido;
+                dbContrato.apellido = dato.apellido;
                 dbContrato.tipoContrato = dato.tipoContrato;
                 dbContrato.sueldo = dato.sueldo;
                 dbContrato.idPais = dato.idPais;
@@ -84,6 +87,8 @@ namespace ContratosToyyoda.Data.Services
                 dbContrato.numDocId = dato.numDocId;
                 dbContrato.cargo= dato.cargo;
                 dbContrato.fechaNacimiento = dato.fechaNacimiento;
+                dbContrato.inactivo = dato.inactivo;
+                dbContrato.fechaFin = dato.fechaFin;
 
                 await _context.SaveChangesAsync();
             };
@@ -91,6 +96,26 @@ namespace ContratosToyyoda.Data.Services
             
 
 
+        }
+
+        public async Task<Contrato> GetContratoByEmailAsync(string email)
+        {
+            // Realizar la consulta a la base de datos para obtener el contrato por email
+            var contrato =  _context.Contratos.FirstOrDefaultAsync(c => c.email == email);
+
+            return await contrato;
+        }
+
+        public async Task<List<Contrato>> GetContratosActivosAsync()
+        {
+            var contratosActivos = await _context.Contratos.Where(c => c.inactivo == false).ToListAsync();
+            return contratosActivos;
+        }
+
+        public async Task<List<Contrato>> GetContratosInactivosAsync()
+        {
+            var contratosActivos = await _context.Contratos.Where(c => c.inactivo ).ToListAsync();
+            return contratosActivos;
         }
     }
 }

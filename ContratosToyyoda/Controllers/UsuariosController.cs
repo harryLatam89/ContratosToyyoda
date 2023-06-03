@@ -100,8 +100,17 @@ namespace ContratosToyyoda.Controllers
             var detallesUsuario = await _service.GetByIdAsync(id);
             if (detallesUsuario == null) return View("NotFound");
 
-            await _service.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _service.DeleteAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+
+                TempData["Error"] = "No es posible eliminar el registro debido a las dependencias existentes.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
         }
     }
 }

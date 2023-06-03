@@ -14,5 +14,11 @@ namespace ContratosToyyoda.Data.Services
 
         
         Task UpdateContratoAsync(NuevoContratoVM dato);
+
+        Task<Contrato> GetContratoByEmailAsync(string email);
+
+        Task<List<Contrato>> GetContratosActivosAsync();
+
+        Task<List<Contrato>> GetContratosInactivosAsync();
     }
 }

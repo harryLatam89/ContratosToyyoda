@@ -111,10 +111,22 @@
                                 <input asp-for="numDocId" class="form-control" />
                                 <span asp-validation-for="numDocId" class="text-danger"></span>
                             </div>
-
+                            <div class="form-check">
+                                <label asp-for="inactivo" class="control-label"></label>
+                                <input asp-for="inactivo" type="checkbox" class="form-check-input" id="inactivoCheckbox" />
+                                <span asp-validation-for="inactivo" class="text-danger"></span>
+                            </div>
+                            <div id= "fechaFinbox" class="form-group">
+                                <label asp-for="fechaFin" class="control-label"></label>
+                                <input asp-for="fechaFin" type="date" class="form-control" />
+                                <span asp-validation-for="fechaFin" class="text-danger"></span>
+                            </div>
                         </div>
 
                     </div>
+
+                    
+
                     <div class="form-group">
                         <input type="submit" value="Actualizar" class="btn btn-outline-success float-right" />
                         <a class="btn btn-outline-secondary" asp-action="Index">Regresar a todos</a>
@@ -127,3 +139,31 @@
 
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        var inactivoCheckbox = document.getElementById("inactivoCheckbox");
+        var fechaFinInput = document.getElementById("fechaFin");
+        var fechaFinBox = document.getElementById("fechaFinbox");
+
+        inactivoCheckbox.addEventListener("change", function () {
+            if (inactivoCheckbox.checked) {
+                fechaFinInput.disabled = false; // Habilitar el campo "fechaFin"
+                fechaFinInput.required = true; // Hacer que el campo "fechaFin" sea obligatorio
+                fechaFinBox.style.display = "block"; // Mostrar el campo "fechaFin"
+            } else {
+                fechaFinInput.disabled = true; // Deshabilitar el campo "fechaFin"
+                fechaFinInput.required = false; // Hacer que el campo "fechaFin" no sea obligatorio
+                fechaFinBox.style.display = "none"; // Ocultar el campo "fechaFin"
+                fechaFinInput.value = ""; // Asignar una cadena vacía al campo fechaFin si se desmarca la casilla
+            }
+        });
+
+        // Inicialmente, verificar el estado de la casilla de verificación y mostrar u ocultar el campo fechaFinBox
+        if (inactivoCheckbox.checked) {
+            fechaFinBox.style.display = "block"; // Mostrar el campo "fechaFin"
+        } else {
+            fechaFinBox.style.display = "none"; // Ocultar el campo "fechaFin"
+        }
+    });
+</script>

@@ -33,5 +33,6 @@ namespace ContratosToyyoda.Models
         [ForeignKey("idApoderado")]
         public Apoderado apoderado { get; set; }
 
+        public ICollection<Contrato> contratos { get; set; }
     }
 }

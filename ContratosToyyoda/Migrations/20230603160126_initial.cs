@@ -6,34 +6,11 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace ContratosToyyoda.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
-                name: "Apoderados",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sexo = table.Column<int>(type: "int", nullable: false),
-                    estadoFamiliar = table.Column<int>(type: "int", nullable: false),
-                    profesion = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    domicilio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    nacionalidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TipoDoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    numDocId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    fechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Apoderados", x => x.Id);
-                });
-
             migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
@@ -66,29 +43,17 @@ namespace ContratosToyyoda.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Paises", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Paises_Apoderados_idApoderado",
-                        column: x => x.idApoderado,
-                        principalTable: "Apoderados",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Contratos",
+                name: "Personas",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    sueldo = table.Column<double>(type: "float", nullable: false),
-                    tipoContrato = table.Column<int>(type: "int", nullable: false),
-                    fechaIngreso = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    fechaEmision = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    idUser = table.Column<int>(type: "int", nullable: false),
-                    idPais = table.Column<int>(type: "int", nullable: false),
+                    email = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     sexo = table.Column<int>(type: "int", nullable: false),
                     estadoFamiliar = table.Column<int>(type: "int", nullable: false),
                     profesion = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -96,56 +61,77 @@ namespace ContratosToyyoda.Migrations
                     nacionalidad = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     TipoDoc = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     numDocId = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    cargo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    fechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    fechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    sueldo = table.Column<double>(type: "float", nullable: true),
+                    tipoContrato = table.Column<int>(type: "int", nullable: true),
+                    fechaIngreso = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    fechaEmision = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    cargo = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    inactivo = table.Column<bool>(type: "bit", nullable: true),
+                    fechaFin = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    idUser = table.Column<int>(type: "int", nullable: true),
+                    idPais = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Contratos", x => x.Id);
+                    table.PrimaryKey("PK_Personas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contratos_Paises_idPais",
+                        name: "FK_Personas_Paises_idPais",
                         column: x => x.idPais,
                         principalTable: "Paises",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Contratos_Usuarios_idUser",
+                        name: "FK_Personas_Usuarios_idUser",
                         column: x => x.idUser,
                         principalTable: "Usuarios",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contratos_idPais",
-                table: "Contratos",
-                column: "idPais");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Contratos_idUser",
-                table: "Contratos",
-                column: "idUser");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Paises_idApoderado",
                 table: "Paises",
                 column: "idApoderado");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personas_email",
+                table: "Personas",
+                column: "email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personas_idPais",
+                table: "Personas",
+                column: "idPais");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personas_idUser",
+                table: "Personas",
+                column: "idUser");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Paises_Personas_idApoderado",
+                table: "Paises",
+                column: "idApoderado",
+                principalTable: "Personas",
+                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Paises_Personas_idApoderado",
+                table: "Paises");
+
             migrationBuilder.DropTable(
-                name: "Contratos");
+                name: "Personas");
 
             migrationBuilder.DropTable(
                 name: "Paises");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
-
-            migrationBuilder.DropTable(
-                name: "Apoderados");
         }
     }
 }

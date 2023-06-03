@@ -28,7 +28,7 @@ namespace ContratosToyyoda.Models
         [Display(Name = "ROL")]
                public string rol { get; set; }
 
-
+        public ICollection<Contrato> contratos { get; set; }
 
 
     }

@@ -7,12 +7,12 @@ using System.Net.Mail;
 namespace ContratosToyyoda.Models
 {
     public class NuevoContratoVM
-    { 
+    {
         public int id { get; set; }
 
-        [Required(ErrorMessage ="nombre es requerido")]
+        [Required(ErrorMessage = "nombre es requerido")]
         [Display(Name = "NOMBRE")]
-        public string nombre { get; set;}
+        public string nombre { get; set; }
         [Required(ErrorMessage = "apellido es requerido")]
         [Display(Name = "APELLIDO")]
         public string apellido { get; set; }
@@ -26,7 +26,7 @@ namespace ContratosToyyoda.Models
         public double sueldo { get; set; }
         [Required(ErrorMessage = "tipo de contrato es requerido")]
         [Display(Name = "TIPO CONTRATO")]
-        public TipoContrato tipoContrato { get; set;}
+        public TipoContrato tipoContrato { get; set; }
         [Required(ErrorMessage = "fecha de ingreso es requerido")]
 
         [Display(Name = "FECHA INGRESO")]
@@ -78,6 +78,12 @@ namespace ContratosToyyoda.Models
 
         [Display(Name = "FECHA DE NACIMIENTO")]
         public DateTime fechaNacimiento { get; set; }
+
+        [Display(Name = "ESTA INACTIVO")]
+        public bool inactivo { get; set; }
+
+        [Display(Name = "FECHA FIN ")]
+        public DateTime? fechaFin { get; set; }
+
     }
-    
-}
+ }

@@ -3,7 +3,12 @@
 @{
     ViewData["Title"] = "Borrar Pais";
 }
-
+@if (TempData["Error"] != null)
+{
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Lo siento!</b> - @TempData["Error"] </span>
+    </div>
+}
 <div class="row text" style="color: white;>
     <div class="col-md-8 offset-2">
         <p>

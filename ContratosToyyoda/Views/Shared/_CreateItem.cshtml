@@ -3,7 +3,20 @@
 
 <div style="position: fixed; right: 25px; bottom: 75px;"  class="Colum">
     <div style="display: flex; flex-direction: column; align-items: flex-end;">
-
+        SoloActivos
+        <a id="filtro-btn" class="btn btn-primary" asp-controller="@Model" asp-action="SoloActivos">Solo Activos</a>
+        <br />
+        <a id="filtro-btn" class="btn btn-primary" asp-controller="@Model" asp-action="SoloInactivos">Solo Inactivos</a>
+        <br />
+        <label style ="color: white;">Buscar por correo</label>
+        <form action="buscarPorEmail" method="POST">
+            <div class="form-group">
+                <label for="correo">Correo:</label>
+                <input type="text" name="correo" class="form-control" id="correo" required placeholder="digite email">
+            </div>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+        </form>
+        <br />
         <button type="button" class="btn btn-primary btn-lg" style=" margin-bottom: 10px;"><a style=" color: black" asp-controller="@Model" asp-action="Create">Agregar nuevo</a></button>
         <button type="button" class="btn btn-secondary btn-lg" style=" margin-bottom: 10px;"><a style=" color: black" asp-controller="@Model" asp-action="Multiple">Cargar CSV contratos</a></button>
         <button type="button" class="btn btn-info btn-lg" style=" margin-bottom: 10px;"><a style=" color: black" asp-controller=Plantillas asp-action="ListaPlantillas">Plantillas disponibles</a></button>

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ContratosToyyoda.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230530143349_Initial")]
-    partial class Initial
+    [Migration("20230603160126_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,140 +24,6 @@ namespace ContratosToyyoda.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ContratosToyyoda.Models.Apoderado", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("TipoDoc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("domicilio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("estadoFamiliar")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("fechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("nacionalidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("numDocId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("profesion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("sexo")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Apoderados");
-                });
-
-            modelBuilder.Entity("ContratosToyyoda.Models.Contrato", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("TipoDoc")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("cargo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("domicilio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("estadoFamiliar")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("fechaEmision")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("fechaIngreso")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("fechaNacimiento")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("idPais")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idUser")
-                        .HasColumnType("int");
-
-                    b.Property<string>("nacionalidad")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("numDocId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("profesion")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("sexo")
-                        .HasColumnType("int");
-
-                    b.Property<double>("sueldo")
-                        .HasColumnType("float");
-
-                    b.Property<int>("tipoContrato")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("idPais");
-
-                    b.HasIndex("idUser");
-
-                    b.ToTable("Contratos");
-                });
 
             modelBuilder.Entity("ContratosToyyoda.Models.Pais", b =>
                 {
@@ -193,6 +59,71 @@ namespace ContratosToyyoda.Migrations
                     b.ToTable("Paises");
                 });
 
+            modelBuilder.Entity("ContratosToyyoda.Models.Persona", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TipoDoc")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("domicilio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("estadoFamiliar")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("fechaNacimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("nacionalidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("numDocId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("profesion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("sexo")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("email")
+                        .IsUnique();
+
+                    b.ToTable("Personas");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Persona");
+
+                    b.UseTphMappingStrategy();
+                });
+
             modelBuilder.Entity("ContratosToyyoda.Models.Usuario", b =>
                 {
                     b.Property<int>("Id")
@@ -226,18 +157,75 @@ namespace ContratosToyyoda.Migrations
                     b.ToTable("Usuarios");
                 });
 
+            modelBuilder.Entity("ContratosToyyoda.Models.Apoderado", b =>
+                {
+                    b.HasBaseType("ContratosToyyoda.Models.Persona");
+
+                    b.HasDiscriminator().HasValue("Apoderado");
+                });
+
+            modelBuilder.Entity("ContratosToyyoda.Models.Contrato", b =>
+                {
+                    b.HasBaseType("ContratosToyyoda.Models.Persona");
+
+                    b.Property<string>("cargo")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("fechaEmision")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("fechaFin")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("fechaIngreso")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("idPais")
+                        .HasColumnType("int");
+
+                    b.Property<int>("idUser")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("inactivo")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("sueldo")
+                        .HasColumnType("float");
+
+                    b.Property<int>("tipoContrato")
+                        .HasColumnType("int");
+
+                    b.HasIndex("idPais");
+
+                    b.HasIndex("idUser");
+
+                    b.HasDiscriminator().HasValue("Contrato");
+                });
+
+            modelBuilder.Entity("ContratosToyyoda.Models.Pais", b =>
+                {
+                    b.HasOne("ContratosToyyoda.Models.Apoderado", "apoderado")
+                        .WithMany("paises")
+                        .HasForeignKey("idApoderado")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("apoderado");
+                });
+
             modelBuilder.Entity("ContratosToyyoda.Models.Contrato", b =>
                 {
                     b.HasOne("ContratosToyyoda.Models.Pais", "pais")
-                        .WithMany()
+                        .WithMany("contratos")
                         .HasForeignKey("idPais")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("ContratosToyyoda.Models.Usuario", "usuario")
-                        .WithMany()
+                        .WithMany("contratos")
                         .HasForeignKey("idUser")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("pais");
@@ -247,13 +235,17 @@ namespace ContratosToyyoda.Migrations
 
             modelBuilder.Entity("ContratosToyyoda.Models.Pais", b =>
                 {
-                    b.HasOne("ContratosToyyoda.Models.Apoderado", "apoderado")
-                        .WithMany()
-                        .HasForeignKey("idApoderado")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Navigation("contratos");
+                });
 
-                    b.Navigation("apoderado");
+            modelBuilder.Entity("ContratosToyyoda.Models.Usuario", b =>
+                {
+                    b.Navigation("contratos");
+                });
+
+            modelBuilder.Entity("ContratosToyyoda.Models.Apoderado", b =>
+                {
+                    b.Navigation("paises");
                 });
 #pragma warning restore 612, 618
         }

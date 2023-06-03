@@ -26,7 +26,7 @@ namespace ContratosToyyoda.Data
                               nombre=   "Harrisson" ,
                               apellido=  "Rivera" ,
                               contrasena=  "RP09041",
-                               rol="user"
+                               rol="admin"
                         },
                       new Usuario()
                         {
@@ -42,7 +42,7 @@ namespace ContratosToyyoda.Data
                              nombre=  "Marvin"  ,
                               apellido=   "Rodríguez" ,
                               contrasena= "RD18025",
-                               rol="user"
+                               rol="admin"
                         },
                  
                     });

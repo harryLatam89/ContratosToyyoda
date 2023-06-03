@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Contrato>
+﻿@model Contrato
 
 @{
     ViewData["Title"] = "Lista de Contratos";
@@ -32,46 +32,45 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model)
-                {
+              
                     <tr>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.nombre)
+                            @Html.DisplayFor(modelItem => @Model.nombre)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.apellido)
+                        @Html.DisplayFor(modelItem => @Model.apellido)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.email)
+                        @Html.DisplayFor(modelItem => @Model.email)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.inactivo)
+                        @Html.DisplayFor(modelItem => @Model.inactivo)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.tipoContrato)
+                        @Html.DisplayFor(modelItem =>@Model.tipoContrato)
                         </td>
                         <td class="align-middle">
-                            @item.fechaIngreso.ToString("dd MMM yy")
+                        @Model.fechaIngreso.ToString("dd MMM yy")
                         </td>
                         <td class="align-middle">
-                            @item.fechaEmision.ToString("dd MMM yy")
+                        @Model.fechaEmision.ToString("dd MMM yy")
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.usuario.nombre)
+                        @Html.DisplayFor(modelItem => @Model.usuario.nombre)
                         </td>
                         <td class="align-middle">
-                            @Html.DisplayFor(modelItem => item.pais.pais)
+                        @Html.DisplayFor(modelItem => @Model.pais.pais)
                         </td>
      
                             <td class="align-middle">
-                                <a class="btn btn-outline-primary" asp-controller="Contratos" asp-action="Edit" asp-route-id="@item.Id"><i class="bi bi-pencil-square"></i>Editar </a> |
-                            <a class="btn btn-outline-info" asp-controller="Contratos" asp-action="Details" asp-route-id="@item.Id"><i class="bi bi-eye"></i>Detalles </a> |
-                            <a class="btn btn-danger text-white" asp-controller="Contratos" asp-action="Delete" asp-route-id="@item.Id"><i class="bi bi-trash"></i>Borrar </a>
+                                <a class="btn btn-outline-primary" asp-controller="Contratos" asp-action="Edit" asp-route-id="@Model.Id"><i class="bi bi-pencil-square"></i>Editar </a> |
+                        <a class="btn btn-outline-info" asp-controller="Contratos" asp-action="Details" asp-route-id="@Model.Id"><i class="bi bi-eye"></i>Detalles </a> |
+                        <a class="btn btn-danger text-white" asp-controller="Contratos" asp-action="Delete" asp-route-id="@Model.Id"><i class="bi bi-trash"></i>Borrar </a>
                         </td>
                         
 
                     </tr>
-                }
+                
             </tbody>
 
         </table>

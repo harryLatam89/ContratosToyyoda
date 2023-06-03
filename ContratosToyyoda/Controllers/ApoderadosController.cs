@@ -2,6 +2,7 @@
 using ContratosToyyoda.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContratosToyyoda.Controllers
 {
@@ -67,18 +68,28 @@ namespace ContratosToyyoda.Controllers
         //GET: producers/delete/1
         public async Task<IActionResult> Delete(int id)
         {
-            var detallePais = await _service.GetByIdAsync(id);
-            if (detallePais == null) return View("NotFound");
-            return View(detallePais);
+            var apoderado = await _service.GetByIdAsync(id);
+            if (apoderado == null) return View("NotFound");
+            return View(apoderado);
         }
         [HttpPost, ActionName("Delete")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var detallePais = await _service.GetByIdAsync(id);
-            if (detallePais == null) return View("NotFound");
+            var apoderado = await _service.GetByIdAsync(id);
+            if (apoderado == null) return View("NotFound");
 
-            await _service.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _service.DeleteAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex) 
+            {
+               
+                TempData["Error"] = "No es posible eliminar el registro debido a las dependencias existentes.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
+            
         }
     }
 }

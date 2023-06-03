@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Diagnostics.Contracts;
 using Azure;
+using Microsoft.EntityFrameworkCore;
 
 namespace ContratosToyyoda.Controllers
 {
@@ -93,8 +94,7 @@ namespace ContratosToyyoda.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(int id,PaisVM dato)
         {
-            Console.Write("el pais.pais es " + dato.pais + " pais.logo es :" + dato.logo);
-            Console.Write("el id es " + id + " pais.Id es :" + dato.id);
+            
             if (id != dato.id) return View("NotFound");
             if (!ModelState.IsValid) {
                 var paisMenu = await _service.GetNuevoMenusValores();
@@ -123,8 +123,17 @@ namespace ContratosToyyoda.Controllers
             var detallePais = await _service.GetPaisByIdAsync(id);
             if (detallePais == null) return View("NotFound");
 
-            await _service.DeleteAsync(id);
-            return RedirectToAction(nameof(Index));
+            try
+            {
+                await _service.DeleteAsync(id);
+                return RedirectToAction(nameof(Index));
+            }
+            catch (DbUpdateException ex)
+            {
+
+                TempData["Error"] = "No es posible eliminar el registro debido a las dependencias existentes.";
+                return RedirectToAction(nameof(Delete), new { id });
+            }
         }
     }
 }

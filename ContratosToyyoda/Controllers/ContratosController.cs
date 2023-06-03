@@ -29,10 +29,13 @@ using static Xamarin.Essentials.Permissions;
 using ContratosToyyoda.Helpers;
 using Aspose.Words.Drawing;
 using System.Drawing;
+using System.Security.Cryptography.Xml;
+using SkiaSharp;
+using Aspose.Words.Lists;
 
 namespace ContratosToyyoda.Controllers
 {
- 
+
     public class ContratosController : Controller
     {
         private readonly IApoderadosService _serviceApoderadosService;
@@ -42,14 +45,15 @@ namespace ContratosToyyoda.Controllers
         private HelperMail helpermail;
        
 
-        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail, IPaisesService paisesService, IApoderadosService serviceApoderadosService)
+        public ContratosController(IContratosService service, IWebHostEnvironment webHostEnvironment, HelperMail helpermail,
+            IPaisesService paisesService, IApoderadosService serviceApoderadosService)
         {
             _service = service;
             _webHostEnvironment = webHostEnvironment;
             _paisesService = paisesService;
             _serviceApoderadosService = serviceApoderadosService;
             this.helpermail = helpermail;
-
+            
         }
         public async Task<IActionResult> Index()
         {
@@ -57,7 +61,14 @@ namespace ContratosToyyoda.Controllers
             var contratosMenus = await _service.GetNuevoMenusValores();
             ViewBag.Usuarios = new SelectList(contratosMenus.Usuarios, "id", "nombreUsuario");
             ViewBag.Paises = new SelectList(contratosMenus.Paises, "id", "pais");
-  
+
+            foreach ( var c in allContratos)
+            {
+
+                Console.WriteLine("el es estadod de " + c.inactivo);
+            }
+            
+
             return View(allContratos);
         }
 
@@ -83,6 +94,7 @@ namespace ContratosToyyoda.Controllers
         public async Task<IActionResult> Details(int id)
         {
             var contratoDetalles = await _service.GetContratoByIdAsync(id);
+           
             return View(contratoDetalles);
         }
 
@@ -97,9 +109,30 @@ namespace ContratosToyyoda.Controllers
             var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
             ViewBag.Paises = paisesSelectList;
     
-
+           
             return View();
         }
+
+        [HttpPost]
+        public async Task<IActionResult> buscarPorEmail(string correo)
+        {
+            var resultado = await _service.GetContratoByEmailAsync(correo);
+            if (resultado != null)
+            {
+                // Se encontró un usuario con el correo especificado
+                // Puedes realizar las acciones necesarias, como mostrar información o redireccionar a otra página
+               
+                return View("~/Views/Contratos/PorEmail.cshtml", resultado);
+            }
+            else
+            {
+                // No se encontró ningún usuario con el correo especificado
+                // Puedes mostrar un mensaje de error o redireccionar a una página de error
+                TempData["Error"] = "Correo no encontrado";
+                return RedirectToAction(nameof(Index));
+            }
+        }
+
 
         [HttpPost]
         public async Task<IActionResult> Create(NuevoContratoVM contrato)
@@ -115,20 +148,31 @@ namespace ContratosToyyoda.Controllers
                 return View(contrato);
 
             }
+            // Verificar si el correo ya existe
+            var existingContract = await _service.GetContratoByEmailAsync(contrato.email);
+            if (existingContract != null)
+            {
+                ModelState.AddModelError("Email", "El correo ya está registrado.");
+                var contratosMenus = await _service.GetNuevoMenusValores();
+
+                var usuariosSelectList = contratosMenus.Usuarios.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.email });
+                ViewBag.Usuarios = usuariosSelectList;
+                var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
+                ViewBag.Paises = paisesSelectList;
+                return View(contrato);
+            }
 
             await _service.AddNuevoContratoAsync(contrato);
-            
+                   
+         
             return RedirectToAction(nameof(Index));
         }
 
         //Get contrato/Edit/1
         [AllowAnonymous]
         public async Task<IActionResult> Edit(int id)
-        {
-
-
-
-            var contratodetalles = await _service.GetContratoByIdAsync(id);
+        {          
+             var contratodetalles = await _service.GetContratoByIdAsync(id);
             if (contratodetalles == null) return View("NotFound");
 
             var response = new NuevoContratoVM()
@@ -151,7 +195,13 @@ namespace ContratosToyyoda.Controllers
                 TipoDoc = contratodetalles.TipoDoc,
                 numDocId = contratodetalles.numDocId,
                 fechaNacimiento=contratodetalles.fechaNacimiento,
-                cargo=contratodetalles.cargo
+                cargo=contratodetalles.cargo,
+                inactivo = contratodetalles.inactivo,
+                fechaFin = contratodetalles.fechaFin,
+
+              
+
+
             };
 
             var contratosMenus = await _service.GetNuevoMenusValores();
@@ -160,6 +210,7 @@ namespace ContratosToyyoda.Controllers
             ViewBag.Usuarios = usuariosSelectList;
             var paisesSelectList = contratosMenus.Paises.Select(u => new SelectListItem { Value = u.Id.ToString(), Text = u.pais });
             ViewBag.Paises = paisesSelectList;
+
             return View(response);
         }
 
@@ -523,7 +574,45 @@ namespace ContratosToyyoda.Controllers
             return RedirectToAction("Index");
         }
 
+         public async Task<IActionResult> SoloActivos()
+        {
+            var response = await _service.GetContratosActivosAsync();
+            if (response != null)
+            {
+                // Se encontró un usuario con el correo especificado
+                // Puedes realizar las acciones necesarias, como mostrar información o redireccionar a otra página
 
+                return View("~/Views/Contratos/Index.cshtml", response);
+            }
+            else
+            {
+                // No se encontró ningún usuario con el correo especificado
+                // Puedes mostrar un mensaje de error o redireccionar a una página de error
+                TempData["Error"] = "no hay contratos Activos encontrado";
+                return RedirectToAction(nameof(Index));
+            }
+
+        }
+
+        public async Task<IActionResult> SoloInactivos()
+        {
+            var response = await _service.GetContratosInactivosAsync();
+            if (response != null)
+            {
+                // Se encontró un usuario con el correo especificado
+                // Puedes realizar las acciones necesarias, como mostrar información o redireccionar a otra página
+
+                return View("~/Views/Contratos/Index.cshtml", response);
+            }
+            else
+            {
+                // No se encontró ningún usuario con el correo especificado
+                // Puedes mostrar un mensaje de error o redireccionar a una página de error
+                TempData["Error"] = "no hay contratos inactivos encontrado";
+                return RedirectToAction(nameof(Index));
+            }
+
+        }
 
     }
 }
