@@ -8,6 +8,7 @@ namespace ContratosToyyoda.Models
     public class Apoderado : Persona
     {
 
-        public ICollection<Pais> paises { get; set; }
+
+        public ICollection<Pais>? paises { get; set; }
     }
 }

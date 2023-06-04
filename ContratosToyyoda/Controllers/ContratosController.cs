@@ -481,6 +481,7 @@ namespace ContratosToyyoda.Controllers
             doc1.Range.Replace("[numDocId]", contratodetalles.numDocId);
             doc1.Range.Replace("[cargo]", contratodetalles.cargo);
             doc1.Range.Replace("[fechaActual]", fechaActual.ToString("dd/MM/yy"));
+            doc1.Range.Replace("[direccionPais]", detallepais.direccion);
 
             // Guardar el documento modificado en una ubicación temporal
             string rutaTemporal = Path.Combine(Path.GetTempPath(), "contrato_temp.docx");

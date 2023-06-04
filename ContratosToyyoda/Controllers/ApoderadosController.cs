@@ -42,6 +42,10 @@ namespace ContratosToyyoda.Controllers
         {
             if (!ModelState.IsValid)
             {
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage);
+                }
                 return View(dato);
             }
             await _service.AddAsync(dato);
